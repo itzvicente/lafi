@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LAFI - Droguería y Bienestar</title>
+    <style>
+        :root {
+            --burgundy: rgb(128, 0, 32);
+            --cream: rgb(245, 236, 220);
+            --cream-opaque: rgb(237, 223, 200);
+            --text-dark: #2c2c2c;
+            --error-red: #d32f2f;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Contenedor tipo pantalla móvil */
+        .app-container {
+            width: 380px;
+            height: 780px;
+            background-color: var(--cream);
+            border-radius: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            border: 8px solid #333;
+        }
+
+        /* Pantallas */
+        .screen {
+            display: none;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+            padding: 24px;
+            overflow-y: auto;
+        }
+
+        .screen.active {
+            display: flex;
+        }
+
+        /* Encabezados y Logo */
+        .brand-header {
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 25px;
+        }
+
+        .brand-logo {
+            font-size: 42px;
+            font-weight: 900;
+            color: var(--burgundy);
+            letter-spacing: 4px;
+        }
+
+        .brand-subtitle {
+            font-size: 11px;
+            letter-spacing: 2px;
+            color: var(--burgundy);
+            font-weight: 600;
+        }
+
+        /* Formularios y Inputs */
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            color: var(--burgundy);
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--burgundy);
+            border-radius: 8px;
+            background-color: transparent;
+            color: var(--text-dark);
+            outline: none;
+        }
+
+        .error-msg {
+            color: var(--error-red);
+            font-size: 11px;
+            font-weight: bold;
+            margin-top: 4px;
+            text-transform: uppercase;
+        }
+
+        .btn-primary {
+            background-color: var(--burgundy);
+            color: var(--cream);
+            border: none;
+            padding: 14px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            margin-top: 10px;
+            letter-spacing: 1px;
+        }
+
+        .link-text {
+            color: var(--burgundy);
+            text-align: center;
+            font-size: 12px;
+            margin-top: 14px;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        /* Tarjetas de Contenido */
+        .card {
+            background-color: var(--cream-opaque);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(128, 0, 32, 0.2);
+        }
+
+        /* Pantalla de Pedido / Tracking */
+        .order-status {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .status-steps {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+            font-size: 11px;
+            color: var(--burgundy);
+            font-weight: bold;
+        }
+
+        /* Pantalla de Actividad / Historial */
+        .activity-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: var(--cream-opaque);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-size: 12px;
+        }
+
+        .badge {
+            font-size: 10px;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-weight: bold;
+            color: white;
+        }
+        .badge-road { background-color: #2196F3; }
+        .badge-delivered { background-color: #4CAF50; }
+        .badge-canceled { background-color: #f44336; }
+
+        /* Navegación Inferior (Hotbar) */
+        .hotbar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background-color: var(--burgundy);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .nav-item {
+            color: var(--cream);
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0.7;
+        }
+
+        .nav-item.active {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+
+    <div id="screen-login" class="screen active">
+        <div class="brand-header">
+            <div class="brand-logo">LAFI</div>
+            <div class="brand-subtitle">DROGUERÍA Y BIENESTAR</div>
+        </div>
+
+        <div style="margin-top: 40px;">
+            <div class="form-group">
+                <label>Ingrese su correo electrónico / Gmail:</label>
+                <input type="email" class="form-input" placeholder="ejemplo@gmail.com">
+            </div>
+
+            <div class="form-group">
+                <label>Ingrese su contraseña:</label>
+                <input type="password" class="form-input" placeholder="••••••••">
+            </div>
+
+            <button class="btn-primary" onclick="showScreen('screen-order')">INICIAR SESIÓN</button>
+            
+            <div class="link-text" onclick="showScreen('screen-register')">¿No tienes cuenta? Regístrate acá</div>
+            <div class="link-text">¿Olvidaste tu contraseña?</div>
+        </div>
+    </div>
+
+    <div id="screen-register" class="screen">
+        <div class="brand-header">
+            <div class="brand-logo">LAFI</div>
+            <div class="brand-subtitle">DROGUERÍA Y BIENESTAR</div>
+        </div>
+
+        <div class="form-group">
+            <label>Ingrese el correo electrónico:</label>
+            <input type="email" class="form-input" placeholder="usuario@gmail.com">
+            <div class="error-msg">* Campo incompleto</div>
+        </div>
+
+        <div class="form-group">
+            <label>Ingrese la contraseña:</label>
+            <input type="password" class="form-input" value="123456">
+        </div>
+
+        <div class="form-group">
+            <label>Confirme la contraseña:</label>
+            <input type="password" class="form-input" value="123457">
+            <div class="error-msg">* No coincide</div>
+        </div>
+
+        <button class="btn-primary" onclick="showScreen('screen-login')">REGISTRARSE</button>
+        <div class="link-text" onclick="showScreen('screen-login')">¿Ya tienes una cuenta? Inicia sesión acá</div>
+    </div>
+
+    <div id="screen-order" class="screen">
+        <div class="brand-header" style="margin-bottom: 10px;">
+            <div class="brand-logo" style="font-size: 28px;">LAFI</div>
+        </div>
+
+        <h3 style="color: var(--burgundy); text-align: center; margin-bottom: 15px;">¡Hacé tu Pedido!</h3>
+
+        <div class="card order-status">
+            <h4 style="color: var(--burgundy);">Tu Pedido en curso</h4>
+            <div class="status-steps">
+                <span>Pago Confirmado</span>
+                <span>En Preparación</span>
+                <span style="text-decoration: underline;">En Camino</span>
+            </div>
+            <button class="btn-primary" style="padding: 8px; font-size: 12px; margin-top: 5px;">Ver Factura</button>
+        </div>
+
+        <div class="card">
+            <strong style="color: var(--burgundy); font-size: 13px;">Sucursal asignada:</strong>
+            <p style="font-size: 12px; color: var(--text-dark); margin-top: 4px;">Sucursal Av. San Martín 1420</p>
+        </div>
+
+        <div class="hotbar">
+            <span class="nav-item active" onclick="showScreen('screen-order')">🏠</span>
+            <span class="nav-item" onclick="showScreen('screen-activity')">📦</span>
+            <span class="nav-item" onclick="showScreen('screen-profile')">👤</span>
+        </div>
+    </div>
+
+    <div id="screen-activity" class="screen">
+        <h3 style="color: var(--burgundy); margin-bottom: 15px; text-align: center;">ACTIVIDAD</h3>
+        
+        <div style="font-size: 12px; color: var(--burgundy); margin-bottom: 10px; font-weight: bold;">
+            Filtros: Pedidos por Período
+        </div>
+
+        <div class="activity-item">
+            <div>
+                <span class="badge badge-road">En camino</span>
+                <div style="font-weight: bold; margin-top: 4px;">Mar 7 de Abril</div>
+                <div style="color: #666;">840 cajas</div>
+            </div>
+            <div style="font-weight: bold; color: var(--burgundy);">$1.983.250</div>
+        </div>
+
+        <div class="activity-item">
+            <div>
+                <span class="badge badge-delivered">Entregado</span>
+                <div style="font-weight: bold; margin-top: 4px;">Vie 20 de Marzo</div>
+                <div style="color: #666;">850 cajas</div>
+            </div>
+            <div style="font-weight: bold; color: var(--burgundy);">$2.044.000</div>
+        </div>
+
+        <div class="activity-item">
+            <div>
+                <span class="badge badge-canceled">Cancelado</span>
+                <div style="font-weight: bold; margin-top: 4px;">Lun 16 de Marzo</div>
+                <div style="color: #666;">790 cajas</div>
+            </div>
+            <div style="font-weight: bold; color: var(--burgundy);">$1.780.000</div>
+        </div>
+
+        <div class="hotbar">
+            <span class="nav-item" onclick="showScreen('screen-order')">🏠</span>
+            <span class="nav-item active" onclick="showScreen('screen-activity')">📦</span>
+            <span class="nav-item" onclick="showScreen('screen-profile')">👤</span>
+        </div>
+    </div>
+
+    <div id="screen-profile" class="screen">
+        <h3 style="color: var(--burgundy); margin-bottom: 15px; text-align: center;">MI PERFIL</h3>
+
+        <div class="card">
+            <strong style="color: var(--burgundy); font-size: 13px;">Información Personal</strong>
+            <p style="font-size: 12px; margin-top: 6px;"><strong>Nombre:</strong> Usuario Ejemplo</p>
+            <p style="font-size: 12px;"><strong>Correo:</strong> usuario@gmail.com</p>
+            <p style="font-size: 12px;"><strong>Teléfono:</strong> +54 11 0000-0000</p>
+        </div>
+
+        <div class="card">
+            <strong style="color: var(--burgundy); font-size: 13px;">Dirección de Entrega</strong>
+            <p style="font-size: 12px; margin-top: 4px;">Calle Falsa 123, CABA</p>
+        </div>
+
+        <button class="btn-primary" style="background-color: #555;" onclick="showScreen('screen-login')">Cerrar Sesión</button>
+
+        <div class="hotbar">
+            <span class="nav-item" onclick="showScreen('screen-order')">🏠</span>
+            <span class="nav-item" onclick="showScreen('screen-activity')">📦</span>
+            <span class="nav-item active" onclick="showScreen('screen-profile')">👤</span>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function showScreen(screenId) {
+        const screens = document.querySelectorAll('.screen');
+        screens.forEach(s => s.classList.remove('active'));
+        
+        const targetScreen = document.getElementById(screenId);
+        if (targetScreen) {
+            targetScreen.classList.add('active');
+        }
+    }
+</script>
+
+</body>
+</html>
