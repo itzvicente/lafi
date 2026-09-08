@@ -29,7 +29,23 @@
         <div class="sidebar-item" style="margin-top: auto; border-top: 1px solid rgba(245, 236, 220, 0.3);" onclick="cerrarSesion()">Cerrar Sesión</div>
     </div>
 
-    <!-- Pantalla 1: Registro -->
+    <!-- Pantalla 1: Iniciar Sesión (Activa por defecto) -->
+    <div id="login" class="screen active">
+        <div class="logo-container">
+            <!-- Asegúrate de que el archivo de imagen se llame exactamente logo.png -->
+            <img src="logo.png" alt="LAFI Logo" style="width: 100px;">
+        </div>
+        <h2>LAFI<br><small>DROGUERÍA Y BIENESTAR</small></h2>
+        
+        <input type="email" id="loginEmail" placeholder="Ingrese su gmail">
+        <input type="password" id="loginPass" placeholder="Ingrese su contraseña">
+        
+        <button onclick="iniciarSesion()">INICIAR SESION</button>
+        <p class="text-link">¿olvidaste la contraseña?</p>
+        <p class="text-link" onclick="navigate('register')">Crear cuenta nueva</p>
+    </div>
+
+    <!-- Pantalla 2: Registro -->
     <div id="register" class="screen">
         <div class="logo-container">
             <img src="logo.png" alt="LAFI Logo" style="width: 80px; filter: drop-shadow(0 0 5px rgba(0,0,0,0.2));">
@@ -49,7 +65,7 @@
         <input type="text" id="regDireccion" placeholder="Calle Falsa 123">
 
         <label>Sucursal asignada:</label>
-        <select id="regSucursal" style="width: 100%; padding: 12px; margin-bottom: 15px; border: 2px solid var(--rojo-burdeos); background-color: var(--crema-opaco); color: var(--rojo-burdeos); border-radius: 8px; font-size: 16px;">
+        <select id="regSucursal">
             <option value="">Seleccione una sucursal</option>
             <option value="Centro">Centro</option>
             <option value="Norte">Norte</option>
@@ -67,21 +83,6 @@
         
         <button onclick="registrarUsuario()">REGISTRARSE</button>
         <p class="text-link" onclick="navigate('login')">¿Ya tienes una cuenta? inicia sesion aca</p>
-    </div>
-
-    <!-- Pantalla 2: Iniciar Sesión -->
-    <div id="login" class="screen active">
-        <div class="logo-container">
-            <img src="logo.png" alt="LAFI Logo" style="width: 100px;">
-        </div>
-        <h2>LAFI<br><small>DROGUERÍA Y BIENESTAR</small></h2>
-        
-        <input type="email" id="loginEmail" placeholder="Ingrese su gmail">
-        <input type="password" id="loginPass" placeholder="Ingrese su contraseña">
-        
-        <button onclick="iniciarSesion()">INICIAR SESION</button>
-        <p class="text-link">¿olvidaste la contraseña?</p>
-        <p class="text-link" onclick="navigate('register')">Crear cuenta nueva</p>
     </div>
 
     <!-- Pantalla 3: Home -->
@@ -113,8 +114,8 @@
             </div>
             
             <div class="card">
-                <p><strong>Sucursal:</strong> <span id="trackSucursal">Centro</span></p>
-                <p><strong>Dirección:</strong> <span id="trackDireccion">Cargando...</span></p>
+                <p><strong>Sucursal:</strong> <span id="trackSucursal">...</span></p>
+                <p><strong>Dirección:</strong> <span id="trackDireccion">...</span></p>
             </div>
 
             <button class="btn-secundario">Ver factura</button>
