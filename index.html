@@ -1,13 +1,144 @@
 <!DOCTYPE html>
-<html>
-   <head>
-      <title>Modelos y Sistemas</title>
-   </head>
-   <body>
-     <h1>LAFI</h1>
-     <p>Drogueria</p>
-     <ul>
-       <li><a href="tp-1/">Primer Trabajo</a></li>
-     </ul>
-   </body>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LAFI - Droguería y Bienestar</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="app-container">
+
+    <!-- Menú Lateral -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-close" onclick="toggleMenu()">✖</div>
+        <h2>Mi Perfil</h2>
+        <div class="sidebar-item" onclick="navigate('home')">Inicio</div>
+        <div class="sidebar-item" onclick="navigate('activity')">Actividad y Pedidos</div>
+        
+        <div style="margin-top: 30px;">
+            <p><strong>Información personal</strong></p>
+            <p id="perfilNombre">Cargando...</p>
+            <p id="perfilEmail">Cargando...</p>
+            <p id="perfilTelefono">Cargando...</p>
+            <p><strong>Dirección de entrega:</strong> <span id="perfilDireccion">...</span></p>
+            <p><strong>Sucursal asignada:</strong> <span id="perfilSucursal">...</span></p>
+        </div>
+        
+        <div class="sidebar-item" style="margin-top: auto; border-top: 1px solid rgba(245, 236, 220, 0.3);" onclick="cerrarSesion()">Cerrar Sesión</div>
+    </div>
+
+    <!-- Pantalla 1: Registro -->
+    <div id="register" class="screen">
+        <div class="logo-container">
+            <img src="logo.png" alt="LAFI Logo" style="width: 80px; filter: drop-shadow(0 0 5px rgba(0,0,0,0.2));">
+        </div>
+        <h2>LAFI<br><small>DROGUERÍA Y BIENESTAR</small></h2>
+        
+        <label>Nombre y Apellido:</label>
+        <input type="text" id="regNombre" placeholder="Ej: Juan Pérez">
+        
+        <label>Correo electrónico:</label>
+        <input type="email" id="regEmail" placeholder="usuario@gmail.com">
+        
+        <label>Teléfono:</label>
+        <input type="text" id="regTelefono" placeholder="+54 11 0000-0000">
+        
+        <label>Dirección de entrega:</label>
+        <input type="text" id="regDireccion" placeholder="Calle Falsa 123">
+
+        <label>Sucursal asignada:</label>
+        <select id="regSucursal" style="width: 100%; padding: 12px; margin-bottom: 15px; border: 2px solid var(--rojo-burdeos); background-color: var(--crema-opaco); color: var(--rojo-burdeos); border-radius: 8px; font-size: 16px;">
+            <option value="">Seleccione una sucursal</option>
+            <option value="Centro">Centro</option>
+            <option value="Norte">Norte</option>
+            <option value="Sur">Sur</option>
+        </select>
+        
+        <label>Ingrese la contraseña:</label>
+        <input type="password" id="regPass1" placeholder=".........">
+        
+        <label>Repita la contraseña:</label>
+        <input type="password" id="regPass2" placeholder=".........">
+        
+        <span class="error-msg" id="errorCampos">POR FAVOR COMPLETE TODOS LOS CAMPOS</span>
+        <span class="error-msg" id="errorPass">NO COINCIDE</span>
+        
+        <button onclick="registrarUsuario()">REGISTRARSE</button>
+        <p class="text-link" onclick="navigate('login')">¿Ya tienes una cuenta? inicia sesion aca</p>
+    </div>
+
+    <!-- Pantalla 2: Iniciar Sesión -->
+    <div id="login" class="screen active">
+        <div class="logo-container">
+            <img src="logo.png" alt="LAFI Logo" style="width: 100px;">
+        </div>
+        <h2>LAFI<br><small>DROGUERÍA Y BIENESTAR</small></h2>
+        
+        <input type="email" id="loginEmail" placeholder="Ingrese su gmail">
+        <input type="password" id="loginPass" placeholder="Ingrese su contraseña">
+        
+        <button onclick="iniciarSesion()">INICIAR SESION</button>
+        <p class="text-link">¿olvidaste la contraseña?</p>
+        <p class="text-link" onclick="navigate('register')">Crear cuenta nueva</p>
+    </div>
+
+    <!-- Pantalla 3: Home -->
+    <div id="home" class="screen" style="padding: 0;">
+        <div class="navbar">
+            <button class="menu-btn" onclick="toggleMenu()">☰</button>
+            <span style="font-weight: bold; font-size: 20px;">LAFI</span>
+            <span style="width: 24px;"></span>
+        </div>
+        <div style="padding: 20px; display: flex; flex-direction: column; height: 100%;">
+            <h2 style="text-align: left;">Bienvenido,</h2>
+            <button class="btn-pedido" onclick="hacerPedido()">HACE TU<br>PEDIDO!!!</button>
+        </div>
+    </div>
+
+    <!-- Pantalla 4: Tracking de Pedido -->
+    <div id="tracking" class="screen" style="padding: 0;">
+        <div class="navbar">
+            <button class="menu-btn" onclick="toggleMenu()">☰</button>
+            <span>Tu pedido</span>
+            <span style="cursor: pointer;" onclick="navigate('home')">Volver</span>
+        </div>
+        <div style="padding: 20px;">
+            <div class="card">
+                <h3>Estado del pedido</h3>
+                <p>✅ Pago confirmado</p>
+                <p>📦 En preparación</p>
+                <p>🚚 <strong>En camino</strong></p>
+            </div>
+            
+            <div class="card">
+                <p><strong>Sucursal:</strong> <span id="trackSucursal">Centro</span></p>
+                <p><strong>Dirección:</strong> <span id="trackDireccion">Cargando...</span></p>
+            </div>
+
+            <button class="btn-secundario">Ver factura</button>
+        </div>
+    </div>
+
+    <!-- Pantalla 5: Actividad -->
+    <div id="activity" class="screen" style="padding: 0;">
+        <div class="navbar">
+            <button class="menu-btn" onclick="toggleMenu()">☰</button>
+            <span>ACTIVIDAD</span>
+            <span style="cursor:pointer;" onclick="navigate('home')">Volver</span>
+        </div>
+        <div style="padding: 20px;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+                <span style="font-weight: bold; color: var(--rojo-burdeos);">Filtros</span>
+                <span style="font-weight: bold; color: var(--rojo-burdeos);">PERIODO ^</span>
+            </div>
+            <div id="listaPedidos"></div> 
+        </div>
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
 </html>
