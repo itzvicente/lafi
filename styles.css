@@ -1,6 +1,6 @@
 :root {
-    --rojo-burdeos: #7a0016; /* Color principal LAFI */
-    --crema-opaco: #f8f1e5;  /* Color de fondo LAFI */
+    --rojo-burdeos: #7a0016; 
+    --crema-opaco: #f8f1e5;  
 }
 
 body {
@@ -16,7 +16,7 @@ body {
 
 .app-container {
     width: 100%;
-    max-width: 414px; /* Tamaño de un celular estándar */
+    max-width: 414px;
     height: 100vh;
     max-height: 896px;
     background-color: var(--crema-opaco);
@@ -211,7 +211,6 @@ button:hover {
     font-size: 14px;
 }
 
-/* Tarjetas */
 .card {
     background-color: white;
     border: 1px solid #ddd;
