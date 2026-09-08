@@ -1,4 +1,4 @@
-// 1. Navegación
+// 1. Navegación Visual
 function navigate(screenId) {
     const screens = document.querySelectorAll('.screen');
     screens.forEach(s => s.classList.remove('active'));
@@ -23,7 +23,7 @@ function toggleMenu() {
     }
 }
 
-// 2. Registro (Simulado en LocalStorage)
+// 2. Registro (Simulado)
 function registrarUsuario() {
     const nombre = document.getElementById('regNombre').value;
     const email = document.getElementById('regEmail').value;
@@ -50,34 +50,27 @@ function registrarUsuario() {
         return;
     }
 
-    // Leemos la base de datos simulada de usuarios
     let usuarios = JSON.parse(localStorage.getItem('github_usuarios')) || [];
     
-    // Verificamos si el correo ya existe
     if (usuarios.find(u => u.email === email)) {
         alert("Este correo ya está registrado");
         return;
     }
 
-    // Creamos el nuevo usuario con un ID único basado en la fecha exacta
     const nuevoUsuario = {
         id: 'user_' + Date.now(),
         nombre: nombre,
         email: email,
         telefono: telefono,
         direccion: direccion,
-        sucursal: sucursal,
-        password: pass1
+        sucursal: sucursal
     };
 
-    // Guardamos en la base de datos simulada
     usuarios.push(nuevoUsuario);
     localStorage.setItem('github_usuarios', JSON.stringify(usuarios));
-    
-    // Iniciamos sesión automáticamente
     localStorage.setItem('usuarioLogueado', nuevoUsuario.id);
     
-    // Limpiamos los campos
+    // Limpiar campos visuales
     document.getElementById('regNombre').value = '';
     document.getElementById('regEmail').value = '';
     document.getElementById('regTelefono').value = '';
@@ -89,31 +82,38 @@ function registrarUsuario() {
     navigate('home');
 }
 
-// 3. Login (Modificado para acceso directo)
+// 3. Iniciar Sesión (Acceso Directo Inteligente)
 function iniciarSesion() {
     let usuarios = JSON.parse(localStorage.getItem('github_usuarios')) || [];
 
-    // Si la memoria está vacía, pedimos que registre al menos uno
+    // Si no hay usuarios en la memoria, creamos uno de prueba automáticamente 
+    // para que no se trabe la navegación
     if (usuarios.length === 0) {
-        alert("Primero debes crear al menos una cuenta en 'Crear cuenta nueva' para tener un perfil que cargar.");
-        return;
+        const usuarioPrueba = {
+            id: 'user_prueba_123',
+            nombre: 'Usuario de Prueba',
+            email: 'prueba@gmail.com',
+            telefono: '+54 11 1234-5678',
+            direccion: 'Calle Falsa 123',
+            sucursal: 'Centro'
+        };
+        usuarios.push(usuarioPrueba);
+        localStorage.setItem('github_usuarios', JSON.stringify(usuarios));
     }
 
-    // Inicia sesión automáticamente con el primer usuario registrado
+    // Inicia sesión usando la primera cuenta disponible
     localStorage.setItem('usuarioLogueado', usuarios[0].id);
     
-    // Limpiamos los textos que haya escrito el usuario
     document.getElementById('loginEmail').value = '';
     document.getElementById('loginPass').value = '';
     
     navigate('home');
 }
 
-// 4. Pedido (Simulado en LocalStorage)
+// 4. Hacer Pedido (Simulado)
 function hacerPedido() {
     const userId = localStorage.getItem('usuarioLogueado');
     if (!userId) {
-        alert("Debes iniciar sesión primero");
         navigate('login');
         return;
     }
@@ -121,16 +121,16 @@ function hacerPedido() {
     let pedidos = JSON.parse(localStorage.getItem('github_pedidos')) || [];
     
     const nuevoPedido = {
-        id_package: 'pkg_' + Math.floor(Math.random() * 10000),
+        id_package: 'PED-' + Math.floor(Math.random() * 10000),
         id_usuario: userId,
-        solicitud_package: 'Pedido estándar',
-        estado_pedido: 'En preparacion'
+        solicitud_package: 'Pedido web estándar',
+        estado_pedido: 'En preparación'
     };
 
     pedidos.push(nuevoPedido);
     localStorage.setItem('github_pedidos', JSON.stringify(pedidos));
     
-    // Actualizar pantalla de tracking con los datos del usuario
+    // Actualizamos los datos del tracking con el usuario actual
     let usuarios = JSON.parse(localStorage.getItem('github_usuarios')) || [];
     let usuarioActivo = usuarios.find(u => u.id === userId);
     
@@ -139,11 +139,11 @@ function hacerPedido() {
         document.getElementById('trackDireccion').innerText = usuarioActivo.direccion;
     }
 
-    alert("¡Pedido creado con éxito!");
+    alert("¡Pedido generado correctamente!");
     navigate('tracking'); 
 }
 
-// 5. Historial de Actividad
+// 5. Historial de Actividad (Simulado)
 function cargarActividad() {
     const userId = localStorage.getItem('usuarioLogueado');
     if (!userId) return; 
@@ -155,7 +155,7 @@ function cargarActividad() {
     contenedor.innerHTML = ''; 
     
     if(misPedidos.length === 0) {
-        contenedor.innerHTML = '<p>Aún no tienes pedidos.</p>';
+        contenedor.innerHTML = '<p>Aún no tienes pedidos registrados.</p>';
         return;
     }
 
@@ -163,12 +163,12 @@ function cargarActividad() {
         contenedor.innerHTML += `
         <div class="card">
             <p style="margin: 0 0 5px 0;"><strong>${pedido.estado_pedido}</strong> - ${pedido.id_package}</p>
-            <p style="margin: 0;">${pedido.solicitud_package}</p>
+            <p style="margin: 0; color: #555;">${pedido.solicitud_package}</p>
         </div>`;
     });
 }
 
-// 6. Cargar Perfil
+// 6. Cargar Perfil (Simulado)
 function cargarPerfil() {
     const userId = localStorage.getItem('usuarioLogueado');
     if (!userId) return;
@@ -188,8 +188,5 @@ function cargarPerfil() {
 // 7. Cerrar Sesión
 function cerrarSesion() {
     localStorage.removeItem('usuarioLogueado');
-    // Limpiamos los inputs de login por seguridad
-    document.getElementById('loginEmail').value = '';
-    document.getElementById('loginPass').value = '';
     navigate('login');
 }
