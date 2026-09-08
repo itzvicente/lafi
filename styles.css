@@ -7,39 +7,58 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #333;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background-color: var(--crema-opaco); /* El fondo ahora cubre toda la pantalla real */
     height: 100vh;
+    width: 100vw;
+    overflow: hidden; /* Evita que aparezcan barras de desplazamiento por fuera */
 }
 
 .app-container {
     width: 100%;
-    max-width: 414px;
-    height: 100vh;
-    max-height: 896px;
-    background-color: var(--crema-opaco);
+    height: 100%;
     position: relative;
-    overflow: hidden;
-    box-shadow: 0 0 20px rgba(0,0,0,0.5);
     display: flex;
     flex-direction: column;
+    /* Eliminamos el max-width de 414px para que ocupe todo el ancho disponible */
 }
 
 .screen {
     display: none;
     flex-direction: column;
     height: 100%;
-    padding: 30px 20px;
     box-sizing: border-box;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .screen.active {
     display: flex;
 }
 
+/* --- ADAPTACIÓN DE PANTALLAS DE LOGIN Y REGISTRO --- */
+#login, #register {
+    padding: 20px;
+    justify-content: center; /* Centra los formularios verticalmente en monitores grandes */
+}
+
+/* Evitamos que en PC los inputs midan 2 metros de largo */
+#login > *, #register > * {
+    max-width: 450px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* --- ADAPTACIÓN DE PANTALLAS INTERNAS (Home, Tracking, Actividad) --- */
+#home > div:nth-child(2),
+#tracking > div:nth-child(2),
+#activity > div:nth-child(2) {
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto; /* Centra el contenido interior dejando la Navbar estirada arriba */
+}
+
+/* --- COMPONENTES VISUALES --- */
 h2 {
     color: var(--rojo-burdeos);
     text-align: center;
@@ -63,6 +82,8 @@ label {
     font-weight: bold;
     margin-bottom: 5px;
     font-size: 14px;
+    display: block;
+    text-align: left;
 }
 
 input, select {
@@ -75,10 +96,12 @@ input, select {
     border-radius: 8px;
     font-size: 16px;
     box-sizing: border-box;
+    transition: all 0.3s ease; /* Efecto suave al hacer clic */
 }
 
-input::placeholder {
-    color: rgba(122, 0, 22, 0.5);
+input:focus, select:focus {
+    outline: none;
+    box-shadow: 0 0 8px rgba(122, 0, 22, 0.4);
 }
 
 button {
@@ -92,19 +115,26 @@ button {
     font-weight: bold;
     cursor: pointer;
     margin-top: 10px;
+    transition: all 0.3s ease;
 }
 
 button:hover {
     background-color: #5c0010;
+    transform: translateY(-2px); /* El botón "sube" un poquito al pasar el mouse */
 }
 
 .btn-pedido {
-    height: 150px;
+    height: auto;
+    min-height: 150px;
     font-size: 24px;
     border-radius: 20px;
     margin-top: auto;
     margin-bottom: auto;
-    box-shadow: 0 4px 10px rgba(122, 0, 22, 0.4);
+    box-shadow: 0 6px 15px rgba(122, 0, 22, 0.4);
+    max-width: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-secundario {
@@ -136,14 +166,16 @@ button:hover {
     font-weight: bold;
 }
 
-/* Navbar */
+/* Navbar (Barra superior) */
 .navbar {
+    width: 100%;
     background-color: var(--rojo-burdeos);
     color: white;
     padding: 15px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-sizing: border-box;
 }
 
 .menu-btn {
@@ -157,22 +189,29 @@ button:hover {
     margin: 0;
 }
 
-/* Menú Lateral */
+.menu-btn:hover {
+    transform: none;
+    background-color: transparent;
+    opacity: 0.8;
+}
+
+/* Menú Lateral adaptable */
 .sidebar {
     position: absolute;
     top: 0;
     left: -100%;
-    width: 250px;
+    width: 80%; /* En celular ocupa el 80% de la pantalla */
+    max-width: 350px; /* Pero en PC nunca pasa de los 350px */
     height: 100%;
     background-color: var(--rojo-burdeos);
     color: white;
-    transition: 0.3s ease-in-out;
-    z-index: 100;
+    transition: left 0.3s ease-in-out;
+    z-index: 1000;
     padding: 20px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    box-shadow: 2px 0 10px rgba(0,0,0,0.5);
+    box-shadow: 5px 0 15px rgba(0,0,0,0.5);
 }
 
 .sidebar.open {
@@ -184,11 +223,12 @@ button:hover {
     text-align: center;
     border-bottom: 1px solid rgba(245, 236, 220, 0.3);
     padding-bottom: 15px;
+    margin-top: 0;
 }
 
 .sidebar-close {
     text-align: right;
-    font-size: 20px;
+    font-size: 24px;
     cursor: pointer;
     font-weight: bold;
     margin-bottom: 10px;
@@ -217,10 +257,34 @@ button:hover {
     border-radius: 10px;
     padding: 15px;
     margin-bottom: 15px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    transition: box-shadow 0.3s ease;
 }
 
-.card h3 {
-    margin-top: 0;
-    color: var(--rojo-burdeos);
+.card:hover {
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+/* --- REGLAS PARA PANTALLAS GRANDES (Tablets y PCs) --- */
+@media (min-width: 768px) {
+    h2 {
+        font-size: 32px;
+    }
+    h2 small {
+        font-size: 18px;
+    }
+    input, select, button {
+        font-size: 18px;
+        padding: 15px;
+    }
+    label {
+        font-size: 16px;
+    }
+    .btn-pedido {
+        font-size: 28px;
+        min-height: 180px;
+    }
+    .text-link {
+        font-size: 16px;
+    }
 }
