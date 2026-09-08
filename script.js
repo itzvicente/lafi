@@ -89,20 +89,24 @@ function registrarUsuario() {
     navigate('home');
 }
 
-// 3. Login (Simulado en LocalStorage)
+// 3. Login (Modificado para acceso directo)
 function iniciarSesion() {
-    const email = document.getElementById('loginEmail').value;
-    const password = document.getElementById('loginPass').value;
-
     let usuarios = JSON.parse(localStorage.getItem('github_usuarios')) || [];
-    let usuarioEncontrado = usuarios.find(u => u.email === email && u.password === password);
 
-    if (usuarioEncontrado) {
-        localStorage.setItem('usuarioLogueado', usuarioEncontrado.id);
-        navigate('home');
-    } else {
-        alert("Credenciales incorrectas. Verifica tu correo y contraseña.");
+    // Si la memoria está vacía, pedimos que registre al menos uno
+    if (usuarios.length === 0) {
+        alert("Primero debes crear al menos una cuenta en 'Crear cuenta nueva' para tener un perfil que cargar.");
+        return;
     }
+
+    // Inicia sesión automáticamente con el primer usuario registrado
+    localStorage.setItem('usuarioLogueado', usuarios[0].id);
+    
+    // Limpiamos los textos que haya escrito el usuario
+    document.getElementById('loginEmail').value = '';
+    document.getElementById('loginPass').value = '';
+    
+    navigate('home');
 }
 
 // 4. Pedido (Simulado en LocalStorage)
@@ -145,7 +149,6 @@ function cargarActividad() {
     if (!userId) return; 
     
     let pedidos = JSON.parse(localStorage.getItem('github_pedidos')) || [];
-    // Filtramos solo los pedidos del usuario activo y los invertimos para ver el más nuevo primero
     let misPedidos = pedidos.filter(p => p.id_usuario === userId).reverse();
     
     const contenedor = document.getElementById('listaPedidos');
