@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LAFI - Droguería y Bienestar</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" id="estiloPrincipal" href="styles.css">
+    <script>
+        const tiempoExacto = new Date().getTime();
+        document.getElementById('estiloPrincipal').href = 'styles.css?v=' + tiempoExacto;
+    </script>
 </head>
 <body>
 
