@@ -136,3 +136,179 @@ Reemplaza tu archivo HTML y CSS por una estructura similar a esta para evitar qu
 
 </body>
 </html>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-color: #f3ece1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Panel Principal Centrado */
+.app-container {
+  display: flex;
+  width: 90%;
+  max-width: 1000px;
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Menú Lateral */
+.sidebar {
+  width: 70px;
+  background-color: #f9f6f0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  border-right: 1px solid #e5dec9;
+}
+
+.nav-btn {
+  background: none;
+  border: none;
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.nav-btn.active, .nav-btn:hover {
+  background-color: #e8dcc4;
+}
+
+.nav-btn img {
+  width: 28px;
+  height: 28px;
+}
+
+/* Área Principal */
+.main-content {
+  flex: 1;
+  padding: 30px;
+}
+
+.top-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #f0e6d6;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.brand-title {
+  color: #6b0c22;
+  font-size: 28px;
+}
+
+.brand-subtitle {
+  color: #777;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+/* Banner de Pedido */
+.hero-banner {
+  background-color: #6b0c22;
+  color: white;
+  padding: 40px 20px;
+  border-radius: 10px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.hero-banner h2 {
+  font-size: 32px;
+  margin-bottom: 15px;
+}
+
+.cta-button {
+  background-color: #f3ece1;
+  color: #6b0c22;
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+/* Recomendación: Secciones Inferiores */
+.features-section h3 {
+  color: #6b0c22;
+  margin-bottom: 15px;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.card {
+  background: #fdfaf5;
+  padding: 15px;
+  border: 1px solid #ebdcc5;
+  border-radius: 8px;
+}
+
+/* Ventana Modal de Iniciar Sesión / Registro */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.5);
+  display: none; /* Se activa mediante JS */
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.modal-card {
+  background: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  width: 350px;
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px; right: 15px;
+  border: none; background: none;
+  font-size: 20px; cursor: pointer;
+}
+
+.auth-form input {
+  width: 100%;
+  padding: 8px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 10px;
+  background: #6b0c22;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.hidden { display: none; }
