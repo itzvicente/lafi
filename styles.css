@@ -68,6 +68,8 @@ body {
   text-align: center;
   border: 1px solid var(--border-color);
   margin: 2rem auto;
+  position: relative;
+  z-index: 10;
 }
 
 .brand-title {
@@ -153,20 +155,20 @@ body {
   color: var(--text-muted);
 }
 
-.switch-auth a {
+.btn-link {
+  background: none;
+  border: none;
   color: var(--primary-color);
   font-weight: 700;
-  text-decoration: none;
   cursor: pointer;
+  font-size: 0.85rem;
+  text-decoration: underline;
+  padding: 0;
 }
 
 /* ==========================================================================
    ESTRUCTURA DASHBOARD (MÓVIL BASE)
    ========================================================================== */
-#view-dashboard.active {
-  display: block !important;
-}
-
 .dashboard {
   width: 100%;
   min-height: 100vh;
