@@ -8,214 +8,188 @@
 </head>
 <body>
 
-  <!-- PANTALLA: LOGIN -->
-  <section id="login-view" class="view active">
+  <!-- ==========================================================================
+       VISTA 1: LOGIN
+       ========================================================================== -->
+  <div id="view-login" class="view active">
     <div class="card-auth">
-      <div class="logo-container">
-        <h1 class="brand-title">LAFI</h1>
-        <p class="brand-subtitle">DROGUERÍA Y BIENESTAR</p>
-      </div>
+      <h1 class="brand-title">LAFI</h1>
+      <p class="brand-subtitle">DROGUERÍA Y BIENESTAR</p>
       <h2>Iniciar Sesión</h2>
+      
       <form id="form-login">
         <div class="input-group">
           <label for="login-email">Ingrese su gmail</label>
           <input type="email" id="login-email" placeholder="usuario@gmail.com" required>
         </div>
-        <div class="input-group password-group">
+        
+        <div class="input-group">
           <label for="login-password">Ingrese su contraseña</label>
-          <div class="password-wrapper">
-            <input type="password" id="login-password" placeholder="••••••••" required>
-            <button type="button" class="btn-toggle-pass" onclick="togglePassword('login-password')">👁️</button>
-          </div>
+          <input type="password" id="login-password" placeholder="••••••••" required>
         </div>
-        <a href="#" class="forgot-pass" onclick="alert('Función de recuperación enviada a su correo')">¿Olvidaste la contraseña?</a>
-        <p id="login-error" class="error-msg"></p>
+
+        <div class="auth-links">
+          <a href="#" class="link-forgot">¿Olvidaste la contraseña?</a>
+        </div>
+        
         <button type="submit" class="btn-primary">INICIAR SESIÓN</button>
       </form>
-      <p class="switch-auth">¿No tienes cuenta? <a href="#" id="go-to-register">Regístrate acá</a></p>
+      
+      <p class="switch-auth">¿No tienes cuenta? <a href="#" onclick="showView('view-register'); return false;">Regístrate acá</a></p>
     </div>
-  </section>
+  </div>
 
-  <!-- PANTALLA: REGISTRO -->
-  <section id="register-view" class="view">
+  <!-- ==========================================================================
+       VISTA 2: REGISTRO
+       ========================================================================== -->
+  <div id="view-register" class="view hidden">
     <div class="card-auth">
-      <div class="logo-container">
-        <h1 class="brand-title">LAFI</h1>
-        <p class="brand-subtitle">DROGUERÍA Y BIENESTAR</p>
-      </div>
+      <h1 class="brand-title">LAFI</h1>
+      <p class="brand-subtitle">DROGUERÍA Y BIENESTAR</p>
       <h2>Registrarse</h2>
+      
       <form id="form-register">
         <div class="input-group">
           <label for="reg-name">Nombre completo</label>
-          <input type="text" id="reg-name" placeholder="Ej: Juan Pérez" required>
+          <input type="text" id="reg-name" placeholder="Juan Pérez" required>
         </div>
-
+        
         <div class="input-group">
           <label for="reg-email">Correo electrónico</label>
-          <input type="email" id="reg-email" placeholder="correo@ejemplo.com" required>
+          <input type="email" id="reg-email" placeholder="usuario@gmail.com" required>
         </div>
 
         <div class="input-group">
           <label for="reg-phone">Teléfono</label>
-          <input type="tel" id="reg-phone" placeholder="+54 11 1234-5678" required>
+          <input type="tel" id="reg-phone" placeholder="+54 11 11111111" required>
         </div>
 
         <div class="input-group">
-          <label for="reg-branch">Dirección de sucursal</label>
-          <input type="text" id="reg-branch" placeholder="Ej: Av. Corrientes 1234" required>
+          <label for="reg-address">Dirección de sucursal</label>
+          <input type="text" id="reg-address" placeholder="Av. Siempre Viva 123" required>
+        </div>
+        
+        <div class="input-group">
+          <label for="reg-pass">Ingrese la contraseña</label>
+          <input type="password" id="reg-pass" placeholder="••••••••" required>
         </div>
 
-        <div class="input-group password-group">
-          <label for="reg-password">Ingrese la contraseña</label>
-          <div class="password-wrapper">
-            <input type="password" id="reg-password" placeholder="••••••••" required>
-            <button type="button" class="btn-toggle-pass" onclick="togglePassword('reg-password')">👁️</button>
-          </div>
+        <div class="input-group">
+          <label for="reg-pass-confirm">Confirme la contraseña</label>
+          <input type="password" id="reg-pass-confirm" placeholder="••••••••" required>
         </div>
-
-        <div class="input-group password-group">
-          <label for="reg-password-confirm">Confirme la contraseña</label>
-          <div class="password-wrapper">
-            <input type="password" id="reg-password-confirm" placeholder="••••••••" required>
-            <button type="button" class="btn-toggle-pass" onclick="togglePassword('reg-password-confirm')">👁️</button>
-          </div>
-        </div>
-
-        <p id="reg-error" class="error-msg"></p>
+        
         <button type="submit" class="btn-primary">REGISTRARSE</button>
       </form>
-      <p class="switch-auth">¿Ya tienes una cuenta? <a href="#" id="go-to-login">Inicia sesión acá</a></p>
+      
+      <p class="switch-auth">¿Ya tienes una cuenta? <a href="#" onclick="showView('view-login'); return false;">Inicia sesión acá</a></p>
     </div>
-  </section>
+  </div>
 
-  <!-- VISTAS PRINCIPALES (PANEL CON NAVEGACIÓN) -->
-  <main id="app-dashboard" class="dashboard hidden">
-    
-    <!-- PESTAÑA 1: INICIO / HACE TU PEDIDO -->
-    <section id="tab-home" class="tab-content active">
+  <!-- ==========================================================================
+       VISTA 3: DASHBOARD PRINCIPAL
+       ========================================================================== -->
+  <div id="view-dashboard" class="view hidden">
+    <div class="dashboard">
+      
+      <!-- Encabezado Móvil / Escritorio -->
       <header class="header-bar">
-        <h1 class="brand-title-sm">LAFI</h1>
-        <span class="brand-sub">DROGUERÍA Y BIENESTAR</span>
+        <div class="brand-header">
+          <span class="brand-title-sm">LAFI</span>
+          <span class="brand-sub">DROGUERÍA Y BIENESTAR</span>
+        </div>
       </header>
-      <div class="hero-banner">
-        <h2>HACE TU PEDIDO!!!</h2>
-        <button class="btn-hero" onclick="switchTab('tab-pedido')">Iniciar Pedido 🛒</button>
-      </div>
-    </section>
 
-    <!-- PESTAÑA 2: DETALLE DE PEDIDO / TU PEDIDO -->
-    <section id="tab-pedido" class="tab-content">
-      <header class="header-bar">
-        <h2>Tu pedido</h2>
-      </header>
-      <div class="order-status-card">
-        <div class="status-tracker">
-          <div class="step completed">
-            <span class="step-icon">✓</span>
-            <span class="step-text">Pago confirmado</span>
+      <!-- Contenido Principal Cambiante por Pestañas -->
+      <main class="main-content">
+        
+        <!-- Pestaña 1: Inicio / Pedidos -->
+        <section id="tab-home" class="tab-content active">
+          <div class="hero-banner">
+            <h2>HACE TU PEDIDO!!!</h2>
+            <button class="btn-hero">Iniciar Pedido 🛒</button>
           </div>
-          <div class="step completed">
-            <span class="step-icon">📦</span>
-            <span class="step-text">En preparación</span>
+        </section>
+
+        <!-- Pestaña 2: Tu Pedido -->
+        <section id="tab-order" class="tab-content">
+          <div class="order-status-card">
+            <h3>Tu pedido</h3>
+            <ul class="status-list">
+              <li class="status-step active">✓ Pago confirmado</li>
+              <li class="status-step active">📦 En preparación</li>
+              <li class="status-step active">🚚 En camino</li>
+            </ul>
+            <p class="order-info"><strong>Estado:</strong> En camino</p>
+            <p class="order-info"><strong>Sucursal:</strong> No asignada</p>
+            <button class="btn-secondary">Ver factura</button>
           </div>
-          <div class="step active">
-            <span class="step-icon">🚚</span>
-            <span class="step-text">En camino</span>
+        </section>
+
+        <!-- Pestaña 3: Actividad -->
+        <section id="tab-activity" class="tab-content">
+          <h2>ACTIVIDAD</h2>
+          <div class="filters">
+            <select><option>PEDIDOS A</option></select>
+            <select><option>PERIODO</option></select>
           </div>
-        </div>
-
-        <div class="order-info">
-          <p><strong>Estado:</strong> <span class="badge badge-warning">En camino</span></p>
-          <p><strong>Sucursal:</strong> <span id="display-sucursal">No asignada</span></p>
-          <button class="btn-secondary" onclick="alert('Descargando factura en PDF...')">Ver factura</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- PESTAÑA 3: ACTIVIDAD E HISTORIAL -->
-    <section id="tab-actividad" class="tab-content">
-      <header class="header-bar">
-        <h2>ACTIVIDAD</h2>
-      </header>
-      <div class="filters-bar">
-        <span>Filtros:</span>
-        <button class="btn-filter">PEDIDOS A ▼</button>
-        <button class="btn-filter">PERIODO ▼</button>
-      </div>
-
-      <div class="activity-list">
-        <div class="activity-card">
-          <div class="card-status status-onway">En camino - mar 7 de abril</div>
-          <div class="card-details">
-            <strong>$1.983.250</strong> — 840 cajas
+          <div class="activity-list">
+            <div class="activity-card">
+              <span class="badge badge-shipping">En camino - mar 7 de abril</span>
+              <h4>$1.983.250 — <small>840 cajas</small></h4>
+            </div>
+            <div class="activity-card">
+              <span class="badge badge-delivered">Entregado - vie 20 de marzo</span>
+              <h4>$2.044.000 — <small>850 cajas</small></h4>
+            </div>
+            <div class="activity-card">
+              <span class="badge badge-canceled">Cancelado - lun 16 de marzo</span>
+              <h4>$1.780.000 — <small>790 cajas</small></h4>
+            </div>
           </div>
-        </div>
-        <div class="activity-card">
-          <div class="card-status status-delivered">Entregado - vie 20 de marzo</div>
-          <div class="card-details">
-            <strong>$2.044.000</strong> — 850 cajas
+        </section>
+
+        <!-- Pestaña 4: Perfil -->
+        <section id="tab-profile" class="tab-content">
+          <div class="profile-card">
+            <h3>Información personal</h3>
+            <div class="form-group"><label>Nombre completo</label><input type="text" readonly value="Usuario Ejemplo"></div>
+            <div class="form-group"><label>Correo electrónico</label><input type="email" readonly value="usuario@gmail.com"></div>
+            <div class="form-group"><label>Teléfono</label><input type="text" readonly value="+54 11 11111111"></div>
+            <div class="form-group"><label>Sucursal asignada / Dirección</label><input type="text" readonly value="Av. Siempre Viva 123"></div>
+            
+            <hr class="divider">
+            
+            <h3>Cuenta y Seguridad</h3>
+            <button class="btn-outline">Cambiar contraseña</button>
+            <button class="btn-danger" id="btn-logout">Cerrar Sesión</button>
           </div>
-        </div>
-        <div class="activity-card">
-          <div class="card-status status-cancelled">Cancelado - lun 16 de marzo</div>
-          <div class="card-details">
-            <strong>$1.780.000</strong> — 790 cajas
-          </div>
-        </div>
-      </div>
-    </section>
+        </section>
 
-    <!-- PESTAÑA 4: PERFIL -->
-    <section id="tab-perfil" class="tab-content">
-      <header class="header-bar">
-        <h2>Información personal</h2>
-      </header>
-      <div class="profile-card">
-        <div class="form-group">
-          <label>Nombre completo</label>
-          <input type="text" id="prof-name" readonly>
-        </div>
-        <div class="form-group">
-          <label>Correo electrónico</label>
-          <input type="email" id="prof-email" readonly>
-        </div>
-        <div class="form-group">
-          <label>Teléfono</label>
-          <input type="text" id="prof-phone" readonly>
-        </div>
-        <div class="form-group">
-          <label>Sucursal asignada / Dirección</label>
-          <input type="text" id="prof-branch" readonly>
-        </div>
+      </main>
 
-        <hr class="divider">
-        <h3>Cuenta y Seguridad</h3>
-        <button class="btn-outline" onclick="alert('Se envió un enlace para cambiar su contraseña.')">Cambiar contraseña</button>
+      <!-- Navegación Lateral (PC) / Inferior (Móvil) -->
+      <nav class="bottom-nav">
+        <button class="nav-item active" onclick="switchTab('tab-home')" data-tooltip="Inicio">
+          <span class="nav-icon">🏠</span>
+          <span class="nav-label">Inicio</span>
+        </button>
+        <button class="nav-item" onclick="switchTab('tab-order')" data-tooltip="Tu Pedido">
+          <span class="nav-icon">📦</span>
+          <span class="nav-label">Tu Pedido</span>
+        </button>
+        <button class="nav-item" onclick="switchTab('tab-activity')" data-tooltip="Actividad">
+          <span class="nav-icon">📋</span>
+          <span class="nav-label">Actividad</span>
+        </button>
+        <button class="nav-item" onclick="switchTab('tab-profile')" data-tooltip="Perfil">
+          <span class="nav-icon">👤</span>
+          <span class="nav-label">Perfil</span>
+        </button>
+      </nav>
 
-        <button class="btn-danger" id="btn-logout">Cerrar Sesión</button>
-      </div>
-    </section>
-
-    <!-- NAVEGACIÓN INFERIOR (BOTTOM NAV) -->
-    <nav class="bottom-nav">
-      <button class="nav-item active" onclick="switchTab('tab-home')">
-        <span class="nav-icon">🏠</span>
-        <span class="nav-label">Inicio</span>
-      </button>
-      <button class="nav-item" onclick="switchTab('tab-pedido')">
-        <span class="nav-icon">📦</span>
-        <span class="nav-label">Tu Pedido</span>
-      </button>
-      <button class="nav-item" onclick="switchTab('tab-actividad')">
-        <span class="nav-icon">📋</span>
-        <span class="nav-label">Actividad</span>
-      </button>
-      <button class="nav-item" onclick="switchTab('tab-perfil')">
-        <span class="nav-icon">👤</span>
-        <span class="nav-label">Perfil</span>
-      </button>
-    </nav>
-  </main>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
