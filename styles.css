@@ -13,7 +13,7 @@
   --lafi-rojo-hover: rgb(100, 0, 25);
   --lafi-crema: rgb(245, 236, 220);
   --lafi-crema-opaco: rgb(237, 223, 200);
-  
+
   --primary-color: var(--lafi-rojo-burdeos);
   --primary-hover: var(--lafi-rojo-hover);
   --bg-color: var(--lafi-crema);
@@ -21,246 +21,118 @@
   --text-color: #2b2b2b;
   --text-muted: #6e675e;
   --border-color: var(--lafi-crema-opaco);
-  
+
   --radius-sm: 6px;
   --radius-md: 12px;
   --radius-lg: 16px;
   --shadow-sm: 0 2px 8px rgba(128, 0, 32, 0.08);
-  --shadow-md: 0 4px 16px rgba(128, 0, 32, 0.12);
-  --sidebar-width: 70px;
-  --nav-height: 60px;
-}
+  --shadow-md: 0 4px 16px rgba(128,Entendido. Los formularios de **Iniciar Sesión** y **Registrarse** están flotando fuera del contenedor principal (al lado izquierdo) debido a un problema con la estructura del HTML o las reglas de CSS (probablemente un `position: absolute` mal configurado, un `flexbox` desalineado o etiquetas no cerradas).
 
-body {
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  min-height: 100vh;
-}
+Además, para dejar la interfaz limpia y profesional, moveremos el acceso a la cuenta a la barra superior o al menú lateral (el ícono del usuario que ya tienes) y colocaremos el contenido recomendado dentro del panel principal.
 
-.hidden {
-  display: none !important;
-}
+---
 
-/* ==========================================================================
-   DASHBOARD / ESTRUCTURA BASE (MÓVIL)
-   ========================================================================== */
-.dashboard {
-  width: 100%;
-  min-height: 100vh;
-  position: relative;
-  padding-bottom: calc(var(--nav-height) + 1rem);
-}
+### 1. Corrección del HTML y CSS (Estructura Limpia)
 
-.header-bar {
-  background-color: var(--card-bg);
-  padding: 0.85rem 1.25rem;
-  border-bottom: 1px solid var(--border-color);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+Reemplaza tu archivo HTML y CSS por una estructura similar a esta para evitar que los formularios se salgan del marco principal:
 
-.brand-title-sm {
-  color: var(--primary-color);
-  font-size: 1.4rem;
-  font-weight: 900;
-  letter-spacing: 1px;
-}
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LAFI - Droguería y Bienestar</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
 
-.brand-sub {
-  font-size: 0.65rem;
-  color: var(--text-muted);
-  font-weight: 600;
-}
+  <!-- Layout Principal -->
+  <div class="app-container">
+    
+    <!-- Menú Lateral Iconos -->
+    <nav class="sidebar">
+      <button class="nav-btn active" title="Inicio">
+        <img src="icono-home.png" alt="Inicio">
+      </button>
+      <button class="nav-btn" title="Productos / Pedidos">
+        <img src="icono-box.png" alt="Productos">
+      </button>
+      <button class="nav-btn" title="Mis Pedidos">
+        <img src="icono-list.png" alt="Historial">
+      </button>
+      <!-- Ícono de Usuario (Abre Modal de Login) -->
+      <button class="nav-btn" id="userBtn" title="Mi Cuenta / Ingresar">
+        <img src="icono-user.png" alt="Usuario">
+      </button>
+    </nav>
 
-/* Contenido Principal */
-.main-content {
-  width: 100%;
-}
+    <!-- Contenido Principal -->
+    <main class="main-content">
+      
+      <!-- Encabezado Superior -->
+      <header class="top-header">
+        <h1 class="brand-title">LAFI</h1>
+        <span class="brand-subtitle">DROGUERÍA Y BIENESTAR</span>
+      </header>
 
-.tab-content {
-  display: none;
-  padding: 1.25rem;
-}
+      <!-- Banner / Call to Action Principal -->
+      <section class="hero-banner">
+        <h2>HACÉ TU PEDIDO!!!</h2>
+        <button class="cta-button">Iniciar Pedido 🛒</button>
+      </section>
 
-.tab-content.active {
-  display: block;
-}
+      <!-- SECCIÓN RECOMENDADA: Productos Destacados / Categorías -->
+      <section class="features-section">
+        <h3>Categorías Destacadas</h3>
+        <div class="cards-grid">
+          <div class="card">
+            <h4>Medicamentos</h4>
+            <p>Catálogo completo con stock en tiempo real.</p>
+          </div>
+          <div class="card">
+            <h4>Cuidado Personal</h4>
+            <p>Productos de higiene y bienestar.</p>
+          </div>
+          <div class="card">
+            <h4>Promociones</h4>
+            <p>Descuentos exclusivos para sucursales.</p>
+          </div>
+        </div>
+      </section>
 
-/* Banner de inicio */
-.hero-banner {
-  background: linear-gradient(135deg, rgb(128, 0, 32) 0%, rgb(80, 0, 20) 100%);
-  color: var(--lafi-crema);
-  border-radius: var(--radius-md);
-  padding: 2.5rem 1.5rem;
-  text-align: center;
-  box-shadow: var(--shadow-sm);
-}
+    </main>
+  </div>
 
-.hero-banner h2 {
-  font-size: 1.6rem;
-  margin-bottom: 1.25rem;
-  font-weight: 800;
-}
+  <!-- MODAL DE INICIO DE SESIÓN / REGISTRO (Oculto por defecto) -->
+  <div class="modal-overlay" id="authModal">
+    <div class="modal-card">
+      <button class="close-btn" id="closeModal">&times;</button>
+      
+      <!-- Tab Iniciar Sesión -->
+      <div id="loginForm" class="auth-form">
+        <h2>Iniciar Sesión</h2>
+        <input type="email" placeholder="Ingrese su correo" required>
+        <input type="password" placeholder="Ingrese su contraseña" required>
+        <a href="#" class="forgot-link">¿Olvidaste la contraseña?</a>
+        <button class="submit-btn">INICIAR SESIÓN</button>
+        <p>¿No tienes cuenta? <a href="#" id="toRegister">Regístrate acá</a></p>
+      </div>
 
-.btn-hero {
-  background-color: var(--lafi-crema);
-  color: var(--primary-color);
-  border: none;
-  padding: 0.85rem 1.75rem;
-  border-radius: 50px;
-  font-weight: 800;
-  font-size: 0.95rem;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
+      <!-- Tab Registrarse -->
+      <div id="registerForm" class="auth-form hidden">
+        <h2>Registrarse</h2>
+        <input type="text" placeholder="Nombre completo" required>
+        <input type="email" placeholder="Correo electrónico" required>
+        <input type="tel" placeholder="+54 11 1234-5678">
+        <input type="text" placeholder="Dirección de sucursal">
+        <input type="password" placeholder="Ingrese la contraseña" required>
+        <input type="password" placeholder="Confirme la contraseña" required>
+        <button class="submit-btn">REGISTRARSE</button>
+        <p>¿Ya tienes una cuenta? <a href="#" id="toLogin">Inicia sesión acá</a></p>
+      </div>
+    </div>
+  </div>
 
-/* Hotbar inferior para móvil */
-.bottom-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: var(--nav-height);
-  background: var(--card-bg);
-  border-top: 1px solid var(--border-color);
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  z-index: 100;
-}
-
-.nav-item {
-  background: none;
-  border: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 3px;
-  color: var(--text-muted);
-  font-size: 0.7rem;
-  cursor: pointer;
-  width: 25%;
-  height: 100%;
-  justify-content: center;
-}
-
-.nav-item.active {
-  color: var(--primary-color);
-  font-weight: 800;
-}
-
-/* ==========================================================================
-   ADAPTACIÓN ESCRITORIO (CORREGIDA)
-   ========================================================================== */
-@media (min-width: 768px) {
-  body {
-    padding: 1.5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .dashboard {
-    max-width: 1200px;
-    min-height: 85vh;
-    background: var(--bg-color);
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-md);
-    padding-bottom: 0;
-    overflow: hidden;
-
-    /* LAYOUT: Barra lateral fija de 70px a la izquierda, contenido a la derecha */
-    display: grid;
-    grid-template-columns: var(--sidebar-width) 1fr;
-    grid-template-rows: auto 1fr;
-    grid-template-areas:
-      "sidebar header"
-      "sidebar content";
-  }
-
-  /* Asignación explícita de áreas */
-  .bottom-nav {
-    grid-area: sidebar;
-    position: static;
-    flex-direction: column;
-    justify-content: flex-start;
-    width: var(--sidebar-width);
-    height: 100%;
-    border-top: none;
-    border-right: 1px solid var(--border-color);
-    padding: 1rem 0;
-    gap: 0.75rem;
-    background-color: var(--card-bg);
-  }
-
-  .header-bar {
-    grid-area: header;
-    border-bottom: 1px solid var(--border-color);
-    padding: 1rem 2rem;
-  }
-
-  .main-content {
-    grid-area: content;
-    overflow-y: auto;
-  }
-
-  /* Ajustes de botones en barra lateral delgada */
-  .nav-item {
-    width: 48px;
-    height: 48px;
-    border-radius: var(--radius-sm);
-    justify-content: center;
-    position: relative;
-  }
-
-  .nav-label {
-    display: none; /* Muestra solo los íconos */
-  }
-
-  .nav-icon {
-    font-size: 1.35rem;
-  }
-
-  .nav-item.active {
-    background-color: var(--lafi-crema-opaco);
-    color: var(--primary-color);
-  }
-
-  /* Tooltip al pasar el mouse por el ícono */
-  .nav-item::after {
-    content: attr(data-tooltip);
-    position: absolute;
-    left: 110%;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: var(--primary-color);
-    color: var(--lafi-crema);
-    padding: 0.35rem 0.65rem;
-    border-radius: 4px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s ease;
-    z-index: 20;
-  }
-
-  .nav-item:hover::after {
-    opacity: 1;
-  }
-
-  .tab-content {
-    padding: 2.5rem;
-  }
-
-  .hero-banner {
-    padding: 4rem 2rem;
-  }
-
-  .hero-banner h2 {
-    font-size: 2.2rem;
-  }
-}
+</body>
+</html>
