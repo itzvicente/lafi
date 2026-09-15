@@ -35,7 +35,7 @@
         <button type="submit" class="btn-primary">INICIAR SESIÓN</button>
       </form>
       
-      <p class="switch-auth">¿No tienes cuenta? <a href="#" onclick="showView('view-register'); return false;">Regístrate acá</a></p>
+      <p class="switch-auth">¿No tienes cuenta? <button type="button" class="btn-link" id="go-to-register">Regístrate acá</button></p>
     </div>
   </div>
 
@@ -82,7 +82,7 @@
         <button type="submit" class="btn-primary">REGISTRARSE</button>
       </form>
       
-      <p class="switch-auth">¿Ya tienes una cuenta? <a href="#" onclick="showView('view-login'); return false;">Inicia sesión acá</a></p>
+      <p class="switch-auth">¿Ya tienes una cuenta? <button type="button" class="btn-link" id="go-to-login">Inicia sesión acá</button></p>
     </div>
   </div>
 
@@ -92,7 +92,6 @@
   <div id="view-dashboard" class="view hidden">
     <div class="dashboard">
       
-      <!-- Encabezado Móvil / Escritorio -->
       <header class="header-bar">
         <div class="brand-header">
           <span class="brand-title-sm">LAFI</span>
@@ -100,18 +99,15 @@
         </div>
       </header>
 
-      <!-- Contenido Principal Cambiante por Pestañas -->
       <main class="main-content">
         
-        <!-- Pestaña 1: Inicio / Pedidos -->
         <section id="tab-home" class="tab-content active">
           <div class="hero-banner">
             <h2>HACE TU PEDIDO!!!</h2>
-            <button class="btn-hero">Iniciar Pedido 🛒</button>
+            <button class="btn-hero" type="button">Iniciar Pedido 🛒</button>
           </div>
         </section>
 
-        <!-- Pestaña 2: Tu Pedido -->
         <section id="tab-order" class="tab-content">
           <div class="order-status-card">
             <h3>Tu pedido</h3>
@@ -122,11 +118,10 @@
             </ul>
             <p class="order-info"><strong>Estado:</strong> En camino</p>
             <p class="order-info"><strong>Sucursal:</strong> No asignada</p>
-            <button class="btn-secondary">Ver factura</button>
+            <button class="btn-secondary" type="button">Ver factura</button>
           </div>
         </section>
 
-        <!-- Pestaña 3: Actividad -->
         <section id="tab-activity" class="tab-content">
           <h2>ACTIVIDAD</h2>
           <div class="filters">
@@ -149,7 +144,6 @@
           </div>
         </section>
 
-        <!-- Pestaña 4: Perfil -->
         <section id="tab-profile" class="tab-content">
           <div class="profile-card">
             <h3>Información personal</h3>
@@ -161,28 +155,27 @@
             <hr class="divider">
             
             <h3>Cuenta y Seguridad</h3>
-            <button class="btn-outline">Cambiar contraseña</button>
-            <button class="btn-danger" id="btn-logout">Cerrar Sesión</button>
+            <button class="btn-outline" type="button">Cambiar contraseña</button>
+            <button class="btn-danger" type="button" id="btn-logout">Cerrar Sesión</button>
           </div>
         </section>
 
       </main>
 
-      <!-- Navegación Lateral (PC) / Inferior (Móvil) -->
       <nav class="bottom-nav">
-        <button class="nav-item active" onclick="switchTab('tab-home')" data-tooltip="Inicio">
+        <button type="button" class="nav-item active" data-tab="tab-home" data-tooltip="Inicio">
           <span class="nav-icon">🏠</span>
           <span class="nav-label">Inicio</span>
         </button>
-        <button class="nav-item" onclick="switchTab('tab-order')" data-tooltip="Tu Pedido">
+        <button type="button" class="nav-item" data-tab="tab-order" data-tooltip="Tu Pedido">
           <span class="nav-icon">📦</span>
           <span class="nav-label">Tu Pedido</span>
         </button>
-        <button class="nav-item" onclick="switchTab('tab-activity')" data-tooltip="Actividad">
+        <button type="button" class="nav-item" data-tab="tab-activity" data-tooltip="Actividad">
           <span class="nav-icon">📋</span>
           <span class="nav-label">Actividad</span>
         </button>
-        <button class="nav-item" onclick="switchTab('tab-profile')" data-tooltip="Perfil">
+        <button type="button" class="nav-item" data-tab="tab-profile" data-tooltip="Perfil">
           <span class="nav-icon">👤</span>
           <span class="nav-label">Perfil</span>
         </button>
