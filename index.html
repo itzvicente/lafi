@@ -46,23 +46,41 @@
       <h2>Registrarse</h2>
       <form id="form-register">
         <div class="input-group">
-          <label for="reg-email">Ingrese el correo electrónico:</label>
+          <label for="reg-name">Nombre completo</label>
+          <input type="text" id="reg-name" placeholder="Ej: Juan Pérez" required>
+        </div>
+
+        <div class="input-group">
+          <label for="reg-email">Correo electrónico</label>
           <input type="email" id="reg-email" placeholder="correo@ejemplo.com" required>
         </div>
+
+        <div class="input-group">
+          <label for="reg-phone">Teléfono</label>
+          <input type="tel" id="reg-phone" placeholder="+54 11 1234-5678" required>
+        </div>
+
+        <div class="input-group">
+          <label for="reg-branch">Dirección de sucursal</label>
+          <input type="text" id="reg-branch" placeholder="Ej: Av. Corrientes 1234" required>
+        </div>
+
         <div class="input-group password-group">
-          <label for="reg-password">Ingrese la contraseña:</label>
+          <label for="reg-password">Ingrese la contraseña</label>
           <div class="password-wrapper">
             <input type="password" id="reg-password" placeholder="••••••••" required>
             <button type="button" class="btn-toggle-pass" onclick="togglePassword('reg-password')">👁️</button>
           </div>
         </div>
+
         <div class="input-group password-group">
-          <label for="reg-password-confirm">Confirme la contraseña:</label>
+          <label for="reg-password-confirm">Confirme la contraseña</label>
           <div class="password-wrapper">
             <input type="password" id="reg-password-confirm" placeholder="••••••••" required>
             <button type="button" class="btn-toggle-pass" onclick="togglePassword('reg-password-confirm')">👁️</button>
           </div>
         </div>
+
         <p id="reg-error" class="error-msg"></p>
         <button type="submit" class="btn-primary">REGISTRARSE</button>
       </form>
@@ -108,7 +126,7 @@
 
         <div class="order-info">
           <p><strong>Estado:</strong> <span class="badge badge-warning">En camino</span></p>
-          <p><strong>Sucursal:</strong> <span id="sucursal-nombre">Sucursal Centro - Av. Corrientes 1234</span></p>
+          <p><strong>Sucursal:</strong> <span id="display-sucursal">No asignada</span></p>
           <button class="btn-secondary" onclick="alert('Descargando factura en PDF...')">Ver factura</button>
         </div>
       </div>
@@ -155,29 +173,24 @@
       <div class="profile-card">
         <div class="form-group">
           <label>Nombre completo</label>
-          <input type="text" id="prof-name" value="Juan Pérez" readonly>
+          <input type="text" id="prof-name" readonly>
         </div>
         <div class="form-group">
           <label>Correo electrónico</label>
-          <input type="email" id="prof-email" value="usuario@gmail.com" readonly>
+          <input type="email" id="prof-email" readonly>
         </div>
         <div class="form-group">
           <label>Teléfono</label>
-          <input type="text" id="prof-phone" value="+54 11 0000-0000">
+          <input type="text" id="prof-phone" readonly>
         </div>
         <div class="form-group">
-          <label>Dirección de entrega</label>
-          <input type="text" id="prof-address" value="Calle Falsa 123">
+          <label>Sucursal asignada / Dirección</label>
+          <input type="text" id="prof-branch" readonly>
         </div>
 
         <hr class="divider">
         <h3>Cuenta y Seguridad</h3>
         <button class="btn-outline" onclick="alert('Se envió un enlace para cambiar su contraseña.')">Cambiar contraseña</button>
-
-        <div class="form-group margin-top">
-          <label>Sucursal asignada</label>
-          <input type="text" value="Sucursal Centro" readonly>
-        </div>
 
         <button class="btn-danger" id="btn-logout">Cerrar Sesión</button>
       </div>
