@@ -1,5 +1,5 @@
 /* ==========================================================================
-   RESET & VARIABLES GLOBALES
+   RESET & VARIABLES GLOBALES (PALETA DE COLORES LAFI)
    ========================================================================== */
 * {
   box-sizing: border-box;
@@ -9,22 +9,29 @@
 }
 
 :root {
-  --primary-color: #0d47a1;
-  --primary-hover: #1565c0;
-  --bg-color: #f4f6f9;
+  /* Paleta oficial LAFI */
+  --lafi-rojo-burdeos: rgb(128, 0, 32);
+  --lafi-rojo-hover: rgb(100, 0, 25);
+  --lafi-crema: rgb(245, 236, 220);
+  --lafi-crema-opaco: rgb(237, 223, 200);
+  
+  /* Sistema de diseño adaptado */
+  --primary-color: var(--lafi-rojo-burdeos);
+  --primary-hover: var(--lafi-rojo-hover);
+  --bg-color: var(--lafi-crema);
   --card-bg: #ffffff;
-  --text-color: #333333;
-  --text-muted: #666666;
-  --border-color: #e0e0e0;
+  --text-color: #2b2b2b;
+  --text-muted: #6e675e;
+  --border-color: var(--lafi-crema-opaco);
   --error-color: #d32f2f;
-  --success-color: #388e3c;
-  --warning-color: #f57c00;
+  --success-color: #2e7d32;
+  --warning-color: #e65100;
   
   --radius-sm: 6px;
   --radius-md: 12px;
   --radius-lg: 20px;
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
+  --shadow-sm: 0 2px 8px rgba(128, 0, 32, 0.08);
+  --shadow-md: 0 4px 16px rgba(128, 0, 32, 0.12);
   --nav-height: 65px;
 }
 
@@ -35,7 +42,7 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  min-height: 100dvh; /* Soporte para visores móviles modernos */
+  min-height: 100dvh;
   overflow-x: hidden;
 }
 
@@ -70,6 +77,7 @@ body {
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
   text-align: center;
+  border: 1px solid var(--border-color);
 }
 
 .logo-container {
@@ -78,8 +86,8 @@ body {
 
 .brand-title {
   color: var(--primary-color);
-  font-size: clamp(2rem, 5vw, 2.5rem);
-  font-weight: 800;
+  font-size: clamp(2.2rem, 5vw, 2.8rem);
+  font-weight: 900;
   letter-spacing: 2px;
 }
 
@@ -87,10 +95,11 @@ body {
   font-size: 0.75rem;
   color: var(--text-muted);
   letter-spacing: 1px;
+  font-weight: 600;
 }
 
 .card-auth h2 {
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   margin-bottom: 1.5rem;
   color: var(--text-color);
 }
@@ -116,13 +125,13 @@ body {
   border-radius: var(--radius-sm);
   font-size: 0.95rem;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  background-color: #fafafa;
+  background-color: var(--bg-color);
 }
 
 .input-group input:focus {
   outline: none;
   border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(13, 71, 161, 0.15);
+  box-shadow: 0 0 0 3px rgba(128, 0, 32, 0.15);
   background-color: #fff;
 }
 
@@ -149,12 +158,13 @@ body {
   color: var(--primary-color);
   text-decoration: none;
   margin-bottom: 1.25rem;
+  font-weight: 600;
 }
 
 .error-msg {
   color: var(--error-color);
   font-size: 0.85rem;
-  font-weight: 600;
+  font-weight: 700;
   margin-bottom: 1rem;
   min-height: 1.2em;
 }
@@ -164,7 +174,7 @@ body {
   width: 100%;
   padding: 0.85rem;
   background-color: var(--primary-color);
-  color: #fff;
+  color: var(--lafi-crema);
   border: none;
   border-radius: var(--radius-sm);
   font-size: 0.95rem;
@@ -189,12 +199,12 @@ body {
 
 .switch-auth a {
   color: var(--primary-color);
-  font-weight: 600;
+  font-weight: 700;
   text-decoration: none;
 }
 
 /* ==========================================================================
-   DASHBOARD PRINCIPAL (MÓVIL PRIMERO)
+   DASHBOARD PRINCIPAL
    ========================================================================== */
 .dashboard {
   width: 100%;
@@ -222,12 +232,14 @@ body {
 .brand-title-sm {
   color: var(--primary-color);
   font-size: 1.5rem;
-  font-weight: 800;
+  font-weight: 900;
+  letter-spacing: 1px;
 }
 
 .brand-sub {
   font-size: 0.65rem;
   color: var(--text-muted);
+  font-weight: 600;
 }
 
 .tab-content {
@@ -247,8 +259,8 @@ body {
 
 /* Pestaña Inicio */
 .hero-banner {
-  background: linear-gradient(135deg, #0d47a1 0%, #1976d2 100%);
-  color: #fff;
+  background: linear-gradient(135deg, rgb(128, 0, 32) 0%, rgb(80, 0, 20) 100%);
+  color: var(--lafi-crema);
   border-radius: var(--radius-md);
   padding: 2.5rem 1.5rem;
   text-align: center;
@@ -257,25 +269,26 @@ body {
 }
 
 .hero-banner h2 {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   margin-bottom: 1.25rem;
-  font-weight: 700;
+  font-weight: 800;
+  letter-spacing: 1px;
 }
 
 .btn-hero {
-  background-color: #ffffff;
+  background-color: var(--lafi-crema);
   color: var(--primary-color);
   border: none;
   padding: 0.85rem 1.75rem;
   border-radius: 50px;
-  font-weight: 700;
+  font-weight: 800;
   font-size: 0.95rem;
   cursor: pointer;
   transition: background-color 0.2s, transform 0.1s;
 }
 
 .btn-hero:hover {
-  background-color: #f0f0f0;
+  background-color: #ffffff;
 }
 
 /* Pestaña Tu Pedido */
@@ -312,7 +325,7 @@ body {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: #eee;
+  background: var(--lafi-crema);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -325,8 +338,8 @@ body {
 }
 
 .step.active .step-icon {
-  background: #e3f2fd;
-  color: var(--primary-color);
+  background: #fff3e0;
+  color: var(--warning-color);
 }
 
 .badge {
@@ -353,9 +366,13 @@ body {
 }
 
 .btn-secondary {
-  background-color: #e3f2fd;
+  background-color: var(--lafi-crema);
   color: var(--primary-color);
-  border: none;
+  border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+  background-color: var(--lafi-crema-opaco);
 }
 
 .btn-outline {
@@ -386,6 +403,7 @@ body {
   border-radius: 20px;
   font-size: 0.8rem;
   cursor: pointer;
+  color: var(--text-muted);
 }
 
 .activity-list {
@@ -433,7 +451,7 @@ body {
   padding: 0.65rem 0.85rem;
   border: 1px solid var(--border-color);
   border-radius: var(--radius-sm);
-  background-color: #f9f9f9;
+  background-color: var(--bg-color);
   color: var(--text-color);
 }
 
@@ -478,7 +496,7 @@ body {
 
 .nav-item.active {
   color: var(--primary-color);
-  font-weight: 700;
+  font-weight: 800;
 }
 
 .nav-icon {
@@ -486,21 +504,22 @@ body {
 }
 
 /* ==========================================================================
-   ADAPTACIONES RESPONSIVAS (TABLETAS Y ESCRITORIO)
+   ADAPTACIÓN PARA COMPUTADORAS (MENÚ ANGOSTO Y PRIORIDAD A APARTADOS)
    ========================================================================== */
 
-/* Pantallas medianas (Tabletas / Pantallas > 600px) */
+/* Pantallas medianas (Tabletas > 600px) */
 @media (min-width: 600px) {
   .view {
     max-width: 480px;
   }
 
   .dashboard {
-    max-width: 768px;
+    max-width: 720px;
     border-radius: var(--radius-lg);
     min-height: auto;
     margin: 2rem auto;
     overflow: hidden;
+    border: 1px solid var(--border-color);
   }
 
   .status-tracker {
@@ -513,14 +532,95 @@ body {
     text-align: center;
   }
 
+  .bottom-nav {
+    max-width: 720px;
+    border-bottom-left-radius: var(--radius-lg);
+    border-bottom-right-radius: var(--radius-lg);
+  }
+}
+
+/* Pantallas grandes (Escritorio > 1024px) */
+@media (min-width: 1024px) {
+  body {
+    padding: 2rem;
+  }
+
+  /* Dashboard ancho con menú lateral compacto */
+  .dashboard {
+    max-width: 1100px;
+    width: 100%;
+    padding-bottom: 0;
+    display: grid;
+    /* Columna del menú angosta (180px) y la de contenido ocupa todo el resto */
+    grid-template-columns: 180px 1fr;
+    min-height: 680px;
+  }
+
+  .header-bar {
+    grid-column: span 2;
+    padding: 1rem 2rem;
+  }
+
+  /* Menú lateral angosto */
+  .bottom-nav {
+    position: static;
+    transform: none;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100%;
+    width: 100%;
+    max-width: 180px;
+    border-top: none;
+    border-right: 1px solid var(--border-color);
+    border-radius: 0;
+    padding: 1.5rem 0.5rem;
+    gap: 0.5rem;
+    background-color: #ffffff;
+  }
+
+  .nav-item {
+    width: 100%;
+    height: 48px;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 0 0.8rem;
+    gap: 0.6rem;
+    font-size: 0.85rem;
+    border-radius: var(--radius-sm);
+    transition: background-color 0.2s, color 0.2s;
+  }
+
+  .nav-item:hover {
+    background-color: var(--lafi-crema);
+  }
+
+  .nav-item.active {
+    background-color: var(--lafi-crema-opaco);
+    color: var(--primary-color);
+  }
+
+  .nav-icon {
+    font-size: 1.1rem;
+  }
+
+  /* Área principal ampliada */
+  .tab-content {
+    padding: 2rem;
+  }
+
+  .hero-banner {
+    padding: 4rem 2rem;
+  }
+
+  .hero-banner h2 {
+    font-size: 2.2rem;
+  }
+
+  /* Distribución de Perfil en 2 columnas amplias */
   .profile-card {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-  }
-
-  .profile-card .form-group {
-    margin-bottom: 0;
+    gap: 1.25rem;
   }
 
   .profile-card .divider,
@@ -530,59 +630,10 @@ body {
     grid-column: span 2;
   }
 
-  .bottom-nav {
-    max-width: 768px;
-    border-bottom-left-radius: var(--radius-lg);
-    border-bottom-right-radius: var(--radius-lg);
-  }
-}
-
-/* Pantallas grandes (Escritorio / Pantallas > 1024px) */
-@media (min-width: 1024px) {
-  .dashboard {
-    max-width: 960px;
-    padding-bottom: 0;
-    display: grid;
-    grid-template-columns: 240px 1fr;
-    min-height: 600px;
-  }
-
-  /* Ocultar barra inferior en escritorio y mover navegación al lateral */
-  .bottom-nav {
-    position: static;
-    transform: none;
-    flex-direction: column;
-    justify-content: flex-start;
-    height: 100%;
-    max-width: 100%;
-    border-top: none;
-    border-right: 1px solid var(--border-color);
-    border-radius: 0;
-    padding-top: 2rem;
-    gap: 0.5rem;
-  }
-
-  .nav-item {
-    width: 100%;
-    height: 50px;
-    flex-direction: row;
-    justify-content: flex-start;
-    padding: 0 1.5rem;
-    gap: 1rem;
-    font-size: 0.95rem;
-    border-radius: var(--radius-sm);
-  }
-
-  .nav-item.active {
-    background-color: #e3f2fd;
-  }
-
-  .header-bar {
-    grid-column: span 2;
-  }
-
+  /* Cuadrícula para las tarjetas de Actividad */
   .activity-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
   }
 }
