@@ -1,5 +1,5 @@
 /* ==========================================================================
-   RESET & VARIABLES GLOBALES (PALETA DE COLORES LAFI)
+   RESET & VARIABLES GLOBALES (PALETA OFICIAL LAFI)
    ========================================================================== */
 * {
   box-sizing: border-box;
@@ -15,7 +15,7 @@
   --lafi-crema: rgb(245, 236, 220);
   --lafi-crema-opaco: rgb(237, 223, 200);
   
-  /* Sistema de diseño adaptado */
+  /* Sistema de diseño */
   --primary-color: var(--lafi-rojo-burdeos);
   --primary-hover: var(--lafi-rojo-hover);
   --bg-color: var(--lafi-crema);
@@ -29,10 +29,11 @@
   
   --radius-sm: 6px;
   --radius-md: 12px;
-  --radius-lg: 20px;
+  --radius-lg: 16px;
   --shadow-sm: 0 2px 8px rgba(128, 0, 32, 0.08);
   --shadow-md: 0 4px 16px rgba(128, 0, 32, 0.12);
-  --nav-height: 65px;
+  --sidebar-width: 68px; /* Ancho ultra compacto para PC */
+  --nav-height: 60px;   /* Altura móvil */
 }
 
 body {
@@ -47,7 +48,7 @@ body {
 }
 
 /* ==========================================================================
-   ESTRUCTURA GENERAL & VISTAS
+   ESTRUCTURA GENERAL & VISTAS AUTENTICACIÓN
    ========================================================================== */
 .view {
   display: none;
@@ -67,9 +68,7 @@ body {
   display: none !important;
 }
 
-/* ==========================================================================
-   TARJETAS DE AUTENTICACIÓN (LOGIN / REGISTRO)
-   ========================================================================== */
+/* Tarjetas Login y Registro */
 .card-auth {
   background: var(--card-bg);
   width: 100%;
@@ -104,7 +103,6 @@ body {
   color: var(--text-color);
 }
 
-/* Formularios & Campos */
 .input-group {
   margin-bottom: 1.25rem;
   text-align: left;
@@ -169,7 +167,6 @@ body {
   min-height: 1.2em;
 }
 
-/* Botones */
 .btn-primary {
   width: 100%;
   padding: 0.85rem;
@@ -180,15 +177,11 @@ body {
   font-size: 0.95rem;
   font-weight: 700;
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.1s ease;
+  transition: background-color 0.2s ease;
 }
 
 .btn-primary:hover {
   background-color: var(--primary-hover);
-}
-
-.btn-primary:active {
-  transform: scale(0.99);
 }
 
 .switch-auth {
@@ -213,13 +206,13 @@ body {
   min-height: 100dvh;
   background-color: var(--bg-color);
   position: relative;
-  padding-bottom: calc(var(--nav-height) + 1.5rem);
+  padding-bottom: calc(var(--nav-height) + 1rem);
   box-shadow: var(--shadow-md);
 }
 
 .header-bar {
   background-color: var(--card-bg);
-  padding: 1rem 1.25rem;
+  padding: 0.85rem 1.25rem;
   border-bottom: 1px solid var(--border-color);
   display: flex;
   align-items: center;
@@ -231,7 +224,7 @@ body {
 
 .brand-title-sm {
   color: var(--primary-color);
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: 900;
   letter-spacing: 1px;
 }
@@ -245,7 +238,7 @@ body {
 .tab-content {
   display: none;
   padding: 1.25rem;
-  animation: fadeIn 0.25s ease-in-out;
+  animation: fadeIn 0.2s ease-in-out;
 }
 
 .tab-content.active {
@@ -264,7 +257,7 @@ body {
   border-radius: var(--radius-md);
   padding: 2.5rem 1.5rem;
   text-align: center;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   box-shadow: var(--shadow-sm);
 }
 
@@ -272,7 +265,6 @@ body {
   font-size: 1.6rem;
   margin-bottom: 1.25rem;
   font-weight: 800;
-  letter-spacing: 1px;
 }
 
 .btn-hero {
@@ -284,7 +276,7 @@ body {
   font-weight: 800;
   font-size: 0.95rem;
   cursor: pointer;
-  transition: background-color 0.2s, transform 0.1s;
+  transition: background-color 0.2s;
 }
 
 .btn-hero:hover {
@@ -305,7 +297,6 @@ body {
   flex-direction: column;
   gap: 1.25rem;
   margin-bottom: 1.5rem;
-  position: relative;
 }
 
 .step {
@@ -462,7 +453,7 @@ body {
   margin: 1.5rem 0;
 }
 
-/* NAVEGACIÓN INFERIOR (MÓVIL) */
+/* HOTBAR / NAVEGACIÓN INFERIOR (MÓVIL) */
 .bottom-nav {
   position: fixed;
   bottom: 0;
@@ -485,7 +476,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 3px;
   color: var(--text-muted);
   font-size: 0.7rem;
   cursor: pointer;
@@ -504,90 +495,67 @@ body {
 }
 
 /* ==========================================================================
-   ADAPTACIÓN PARA COMPUTADORAS (MENÚ ANGOSTO Y PRIORIDAD A APARTADOS)
+   ADAPTACIÓN ESCRITORIO: HOTBAR ULTRADELGADA A LA IZQUIERDA Y MÁXIMO ESPACIO
    ========================================================================== */
 
-/* Pantallas medianas (Tabletas > 600px) */
-@media (min-width: 600px) {
-  .view {
-    max-width: 480px;
-  }
-
-  .dashboard {
-    max-width: 720px;
-    border-radius: var(--radius-lg);
-    min-height: auto;
-    margin: 2rem auto;
-    overflow: hidden;
-    border: 1px solid var(--border-color);
-  }
-
-  .status-tracker {
-    flex-direction: row;
-    justify-content: space-between;
-  }
-
-  .step {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .bottom-nav {
-    max-width: 720px;
-    border-bottom-left-radius: var(--radius-lg);
-    border-bottom-right-radius: var(--radius-lg);
-  }
-}
-
-/* Pantallas grandes (Escritorio > 1024px) */
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
   body {
-    padding: 2rem;
+    padding: 1rem;
   }
 
-  /* Dashboard ancho con menú lateral compacto */
   .dashboard {
-    max-width: 1100px;
+    max-width: 1300px;
     width: 100%;
     padding-bottom: 0;
     display: grid;
-    /* Columna del menú angosta (180px) y la de contenido ocupa todo el resto */
-    grid-template-columns: 180px 1fr;
-    min-height: 680px;
+    /* 68px reservados para el menú de la izquierda, el resto (1fr) es para las vistas */
+    grid-template-columns: var(--sidebar-width) 1fr;
+    grid-template-rows: auto 1fr;
+    min-height: 85vh;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
   }
 
+  /* El encabezado ocupa todo el ancho superior */
   .header-bar {
     grid-column: span 2;
-    padding: 1rem 2rem;
+    padding: 0.9rem 2rem;
   }
 
-  /* Menú lateral angosto */
+  /* Hotbar ultra delgada en el borde izquierdo */
   .bottom-nav {
     position: static;
     transform: none;
     flex-direction: column;
     justify-content: flex-start;
     height: 100%;
-    width: 100%;
-    max-width: 180px;
+    width: var(--sidebar-width);
+    max-width: var(--sidebar-width);
     border-top: none;
     border-right: 1px solid var(--border-color);
     border-radius: 0;
-    padding: 1.5rem 0.5rem;
-    gap: 0.5rem;
-    background-color: #ffffff;
+    padding: 1rem 0;
+    gap: 0.75rem;
+    background-color: var(--card-bg);
   }
 
   .nav-item {
-    width: 100%;
+    width: 48px;
     height: 48px;
-    flex-direction: row;
-    justify-content: flex-start;
-    padding: 0 0.8rem;
-    gap: 0.6rem;
-    font-size: 0.85rem;
     border-radius: var(--radius-sm);
+    justify-content: center;
+    position: relative;
     transition: background-color 0.2s, color 0.2s;
+  }
+
+  /* Ocultar el texto en el menú delgado para ahorrar espacio */
+  .nav-label {
+    display: none;
+  }
+
+  .nav-icon {
+    font-size: 1.35rem;
   }
 
   .nav-item:hover {
@@ -599,28 +567,60 @@ body {
     color: var(--primary-color);
   }
 
-  .nav-icon {
-    font-size: 1.1rem;
+  /* Tooltip con nombre de la sección al pasar el mouse */
+  .nav-item::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    left: 110%;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--primary-color);
+    color: var(--lafi-crema);
+    padding: 0.35rem 0.65rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    box-shadow: var(--shadow-sm);
+    z-index: 20;
   }
 
-  /* Área principal ampliada */
+  .nav-item:hover::after {
+    opacity: 1;
+  }
+
+  /* Área principal ampliada para los apartados */
   .tab-content {
-    padding: 2rem;
+    padding: 2.5rem;
+    max-width: 100%;
   }
 
   .hero-banner {
-    padding: 4rem 2rem;
+    padding: 4.5rem 2rem;
   }
 
   .hero-banner h2 {
     font-size: 2.2rem;
   }
 
-  /* Distribución de Perfil en 2 columnas amplias */
+  .status-tracker {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .step {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  /* Cuadrícula amplia para Perfil */
   .profile-card {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.25rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
   }
 
   .profile-card .divider,
@@ -630,10 +630,10 @@ body {
     grid-column: span 2;
   }
 
-  /* Cuadrícula para las tarjetas de Actividad */
+  /* Cuadrícula amplia para Actividad */
   .activity-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.25rem;
   }
 }
