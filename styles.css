@@ -1,5 +1,5 @@
 /* ==========================================================================
-   RESET & VARIABLES GLOBALES (PALETA OFICIAL LAFI)
+   RESET & VARIABLES GLOBALES
    ========================================================================== */
 * {
   box-sizing: border-box;
@@ -9,13 +9,11 @@
 }
 
 :root {
-  /* Paleta oficial LAFI */
   --lafi-rojo-burdeos: rgb(128, 0, 32);
   --lafi-rojo-hover: rgb(100, 0, 25);
   --lafi-crema: rgb(245, 236, 220);
   --lafi-crema-opaco: rgb(237, 223, 200);
   
-  /* Sistema de diseño */
   --primary-color: var(--lafi-rojo-burdeos);
   --primary-hover: var(--lafi-rojo-hover);
   --bg-color: var(--lafi-crema);
@@ -23,191 +21,34 @@
   --text-color: #2b2b2b;
   --text-muted: #6e675e;
   --border-color: var(--lafi-crema-opaco);
-  --error-color: #d32f2f;
-  --success-color: #2e7d32;
-  --warning-color: #e65100;
   
   --radius-sm: 6px;
   --radius-md: 12px;
   --radius-lg: 16px;
   --shadow-sm: 0 2px 8px rgba(128, 0, 32, 0.08);
   --shadow-md: 0 4px 16px rgba(128, 0, 32, 0.12);
-  --sidebar-width: 68px; /* Ancho ultra compacto para PC */
-  --nav-height: 60px;   /* Altura móvil */
+  --sidebar-width: 70px;
+  --nav-height: 60px;
 }
 
 body {
   background-color: var(--bg-color);
   color: var(--text-color);
-  display: flex;
-  justify-content: center;
-  align-items: center;
   min-height: 100vh;
-  min-height: 100dvh;
-  overflow-x: hidden;
-}
-
-/* ==========================================================================
-   ESTRUCTURA GENERAL & VISTAS AUTENTICACIÓN
-   ========================================================================== */
-.view {
-  display: none;
-  width: 100%;
-  max-width: 450px;
-  padding: 1.5rem 1rem;
-  margin: auto;
-}
-
-.view.active {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .hidden {
   display: none !important;
 }
 
-/* Tarjetas Login y Registro */
-.card-auth {
-  background: var(--card-bg);
-  width: 100%;
-  padding: 2rem 1.5rem;
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
-  text-align: center;
-  border: 1px solid var(--border-color);
-}
-
-.logo-container {
-  margin-bottom: 1.5rem;
-}
-
-.brand-title {
-  color: var(--primary-color);
-  font-size: clamp(2.2rem, 5vw, 2.8rem);
-  font-weight: 900;
-  letter-spacing: 2px;
-}
-
-.brand-subtitle {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  letter-spacing: 1px;
-  font-weight: 600;
-}
-
-.card-auth h2 {
-  font-size: 1.2rem;
-  margin-bottom: 1.5rem;
-  color: var(--text-color);
-}
-
-.input-group {
-  margin-bottom: 1.25rem;
-  text-align: left;
-}
-
-.input-group label {
-  display: block;
-  font-size: 0.85rem;
-  font-weight: 600;
-  margin-bottom: 0.4rem;
-  color: var(--text-muted);
-}
-
-.input-group input {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-sm);
-  font-size: 0.95rem;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  background-color: var(--bg-color);
-}
-
-.input-group input:focus {
-  outline: none;
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(128, 0, 32, 0.15);
-  background-color: #fff;
-}
-
-.password-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.btn-toggle-pass {
-  position: absolute;
-  right: 10px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1.1rem;
-  padding: 4px;
-}
-
-.forgot-pass {
-  display: block;
-  text-align: right;
-  font-size: 0.8rem;
-  color: var(--primary-color);
-  text-decoration: none;
-  margin-bottom: 1.25rem;
-  font-weight: 600;
-}
-
-.error-msg {
-  color: var(--error-color);
-  font-size: 0.85rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  min-height: 1.2em;
-}
-
-.btn-primary {
-  width: 100%;
-  padding: 0.85rem;
-  background-color: var(--primary-color);
-  color: var(--lafi-crema);
-  border: none;
-  border-radius: var(--radius-sm);
-  font-size: 0.95rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.btn-primary:hover {
-  background-color: var(--primary-hover);
-}
-
-.switch-auth {
-  margin-top: 1.5rem;
-  font-size: 0.85rem;
-  color: var(--text-muted);
-}
-
-.switch-auth a {
-  color: var(--primary-color);
-  font-weight: 700;
-  text-decoration: none;
-}
-
 /* ==========================================================================
-   DASHBOARD PRINCIPAL
+   DASHBOARD / ESTRUCTURA BASE (MÓVIL)
    ========================================================================== */
 .dashboard {
   width: 100%;
-  max-width: 480px;
   min-height: 100vh;
-  min-height: 100dvh;
-  background-color: var(--bg-color);
   position: relative;
   padding-bottom: calc(var(--nav-height) + 1rem);
-  box-shadow: var(--shadow-md);
 }
 
 .header-bar {
@@ -217,9 +58,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: sticky;
-  top: 0;
-  z-index: 10;
 }
 
 .brand-title-sm {
@@ -235,29 +73,27 @@ body {
   font-weight: 600;
 }
 
+/* Contenido Principal */
+.main-content {
+  width: 100%;
+}
+
 .tab-content {
   display: none;
   padding: 1.25rem;
-  animation: fadeIn 0.2s ease-in-out;
 }
 
 .tab-content.active {
   display: block;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(4px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Pestaña Inicio */
+/* Banner de inicio */
 .hero-banner {
   background: linear-gradient(135deg, rgb(128, 0, 32) 0%, rgb(80, 0, 20) 100%);
   color: var(--lafi-crema);
   border-radius: var(--radius-md);
   padding: 2.5rem 1.5rem;
   text-align: center;
-  margin-top: 0.5rem;
   box-shadow: var(--shadow-sm);
 }
 
@@ -279,188 +115,12 @@ body {
   transition: background-color 0.2s;
 }
 
-.btn-hero:hover {
-  background-color: #ffffff;
-}
-
-/* Pestaña Tu Pedido */
-.order-status-card, .profile-card {
-  background: var(--card-bg);
-  border-radius: var(--radius-md);
-  padding: 1.25rem;
-  box-shadow: var(--shadow-sm);
-  border: 1px solid var(--border-color);
-}
-
-.status-tracker {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-  margin-bottom: 1.5rem;
-}
-
-.step {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  font-size: 0.9rem;
-  color: var(--text-muted);
-}
-
-.step.completed, .step.active {
-  font-weight: 600;
-  color: var(--text-color);
-}
-
-.step-icon {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: var(--lafi-crema);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.9rem;
-}
-
-.step.completed .step-icon {
-  background: #e8f5e9;
-  color: var(--success-color);
-}
-
-.step.active .step-icon {
-  background: #fff3e0;
-  color: var(--warning-color);
-}
-
-.badge {
-  padding: 0.25rem 0.6rem;
-  border-radius: 12px;
-  font-size: 0.75rem;
-  font-weight: 700;
-}
-
-.badge-warning {
-  background-color: #fff3e0;
-  color: var(--warning-color);
-}
-
-.btn-secondary, .btn-outline, .btn-danger {
-  width: 100%;
-  padding: 0.75rem;
-  border-radius: var(--radius-sm);
-  font-size: 0.9rem;
-  font-weight: 600;
-  cursor: pointer;
-  margin-top: 1rem;
-  transition: background-color 0.2s;
-}
-
-.btn-secondary {
-  background-color: var(--lafi-crema);
-  color: var(--primary-color);
-  border: 1px solid var(--border-color);
-}
-
-.btn-secondary:hover {
-  background-color: var(--lafi-crema-opaco);
-}
-
-.btn-outline {
-  background: transparent;
-  border: 1px solid var(--border-color);
-  color: var(--text-color);
-}
-
-.btn-danger {
-  background-color: #ffebee;
-  color: var(--error-color);
-  border: none;
-}
-
-/* Pestaña Actividad */
-.filters-bar {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-  flex-wrap: wrap;
-}
-
-.btn-filter {
-  background: var(--card-bg);
-  border: 1px solid var(--border-color);
-  padding: 0.4rem 0.75rem;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  cursor: pointer;
-  color: var(--text-muted);
-}
-
-.activity-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.activity-card {
-  background: var(--card-bg);
-  border-radius: var(--radius-sm);
-  padding: 1rem;
-  border: 1px solid var(--border-color);
-}
-
-.card-status {
-  font-size: 0.8rem;
-  font-weight: 700;
-  margin-bottom: 0.4rem;
-}
-
-.status-onway { color: var(--warning-color); }
-.status-delivered { color: var(--success-color); }
-.status-cancelled { color: var(--error-color); }
-
-.card-details {
-  font-size: 0.95rem;
-  color: var(--text-color);
-}
-
-/* Pestaña Perfil */
-.form-group {
-  margin-bottom: 1rem;
-}
-
-.form-group label {
-  display: block;
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  margin-bottom: 0.25rem;
-}
-
-.form-group input {
-  width: 100%;
-  padding: 0.65rem 0.85rem;
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-sm);
-  background-color: var(--bg-color);
-  color: var(--text-color);
-}
-
-.divider {
-  border: 0;
-  height: 1px;
-  background: var(--border-color);
-  margin: 1.5rem 0;
-}
-
-/* HOTBAR / NAVEGACIÓN INFERIOR (MÓVIL) */
+/* Hotbar inferior para móvil */
 .bottom-nav {
   position: fixed;
   bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
   width: 100%;
-  max-width: 480px;
   height: var(--nav-height);
   background: var(--card-bg);
   border-top: 1px solid var(--border-color);
@@ -490,76 +150,77 @@ body {
   font-weight: 800;
 }
 
-.nav-icon {
-  font-size: 1.25rem;
-}
-
 /* ==========================================================================
-   ADAPTACIÓN ESCRITORIO: HOTBAR ULTRADELGADA A LA IZQUIERDA Y MÁXIMO ESPACIO
+   ADAPTACIÓN ESCRITORIO (CORREGIDA)
    ========================================================================== */
-
 @media (min-width: 768px) {
   body {
-    padding: 1rem;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .dashboard {
-    max-width: 1300px;
-    width: 100%;
-    padding-bottom: 0;
-    display: grid;
-    /* 68px reservados para el menú de la izquierda, el resto (1fr) es para las vistas */
-    grid-template-columns: var(--sidebar-width) 1fr;
-    grid-template-rows: auto 1fr;
+    max-width: 1200px;
     min-height: 85vh;
+    background: var(--bg-color);
     border-radius: var(--radius-lg);
     border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-md);
+    padding-bottom: 0;
     overflow: hidden;
+
+    /* LAYOUT: Barra lateral fija de 70px a la izquierda, contenido a la derecha */
+    display: grid;
+    grid-template-columns: var(--sidebar-width) 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+      "sidebar header"
+      "sidebar content";
   }
 
-  /* El encabezado ocupa todo el ancho superior */
-  .header-bar {
-    grid-column: span 2;
-    padding: 0.9rem 2rem;
-  }
-
-  /* Hotbar ultra delgada en el borde izquierdo */
+  /* Asignación explícita de áreas */
   .bottom-nav {
+    grid-area: sidebar;
     position: static;
-    transform: none;
     flex-direction: column;
     justify-content: flex-start;
-    height: 100%;
     width: var(--sidebar-width);
-    max-width: var(--sidebar-width);
+    height: 100%;
     border-top: none;
     border-right: 1px solid var(--border-color);
-    border-radius: 0;
     padding: 1rem 0;
     gap: 0.75rem;
     background-color: var(--card-bg);
   }
 
+  .header-bar {
+    grid-area: header;
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem 2rem;
+  }
+
+  .main-content {
+    grid-area: content;
+    overflow-y: auto;
+  }
+
+  /* Ajustes de botones en barra lateral delgada */
   .nav-item {
     width: 48px;
     height: 48px;
     border-radius: var(--radius-sm);
     justify-content: center;
     position: relative;
-    transition: background-color 0.2s, color 0.2s;
   }
 
-  /* Ocultar el texto en el menú delgado para ahorrar espacio */
   .nav-label {
-    display: none;
+    display: none; /* Muestra solo los íconos */
   }
 
   .nav-icon {
     font-size: 1.35rem;
-  }
-
-  .nav-item:hover {
-    background-color: var(--lafi-crema);
   }
 
   .nav-item.active {
@@ -567,7 +228,7 @@ body {
     color: var(--primary-color);
   }
 
-  /* Tooltip con nombre de la sección al pasar el mouse */
+  /* Tooltip al pasar el mouse por el ícono */
   .nav-item::after {
     content: attr(data-tooltip);
     position: absolute;
@@ -584,7 +245,6 @@ body {
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.2s ease;
-    box-shadow: var(--shadow-sm);
     z-index: 20;
   }
 
@@ -592,48 +252,15 @@ body {
     opacity: 1;
   }
 
-  /* Área principal ampliada para los apartados */
   .tab-content {
     padding: 2.5rem;
-    max-width: 100%;
   }
 
   .hero-banner {
-    padding: 4.5rem 2rem;
+    padding: 4rem 2rem;
   }
 
   .hero-banner h2 {
     font-size: 2.2rem;
-  }
-
-  .status-tracker {
-    flex-direction: row;
-    justify-content: space-around;
-  }
-
-  .step {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  /* Cuadrícula amplia para Perfil */
-  .profile-card {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-  }
-
-  .profile-card .divider,
-  .profile-card h3,
-  .profile-card .btn-outline,
-  .profile-card .btn-danger {
-    grid-column: span 2;
-  }
-
-  /* Cuadrícula amplia para Actividad */
-  .activity-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 1.25rem;
   }
 }
