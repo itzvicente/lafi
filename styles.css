@@ -26,289 +26,283 @@
   --radius-md: 12px;
   --radius-lg: 16px;
   --shadow-sm: 0 2px 8px rgba(128, 0, 32, 0.08);
-  --shadow-md: 0 4px 16px rgba(128,Entendido. Los formularios de **Iniciar Sesión** y **Registrarse** están flotando fuera del contenedor principal (al lado izquierdo) debido a un problema con la estructura del HTML o las reglas de CSS (probablemente un `position: absolute` mal configurado, un `flexbox` desalineado o etiquetas no cerradas).
-
-Además, para dejar la interfaz limpia y profesional, moveremos el acceso a la cuenta a la barra superior o al menú lateral (el ícono del usuario que ya tienes) y colocaremos el contenido recomendado dentro del panel principal.
-
----
-
-### 1. Corrección del HTML y CSS (Estructura Limpia)
-
-Reemplaza tu archivo HTML y CSS por una estructura similar a esta para evitar que los formularios se salgan del marco principal:
-
-```html
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LAFI - Droguería y Bienestar</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-
-  <!-- Layout Principal -->
-  <div class="app-container">
-    
-    <!-- Menú Lateral Iconos -->
-    <nav class="sidebar">
-      <button class="nav-btn active" title="Inicio">
-        <img src="icono-home.png" alt="Inicio">
-      </button>
-      <button class="nav-btn" title="Productos / Pedidos">
-        <img src="icono-box.png" alt="Productos">
-      </button>
-      <button class="nav-btn" title="Mis Pedidos">
-        <img src="icono-list.png" alt="Historial">
-      </button>
-      <!-- Ícono de Usuario (Abre Modal de Login) -->
-      <button class="nav-btn" id="userBtn" title="Mi Cuenta / Ingresar">
-        <img src="icono-user.png" alt="Usuario">
-      </button>
-    </nav>
-
-    <!-- Contenido Principal -->
-    <main class="main-content">
-      
-      <!-- Encabezado Superior -->
-      <header class="top-header">
-        <h1 class="brand-title">LAFI</h1>
-        <span class="brand-subtitle">DROGUERÍA Y BIENESTAR</span>
-      </header>
-
-      <!-- Banner / Call to Action Principal -->
-      <section class="hero-banner">
-        <h2>HACÉ TU PEDIDO!!!</h2>
-        <button class="cta-button">Iniciar Pedido 🛒</button>
-      </section>
-
-      <!-- SECCIÓN RECOMENDADA: Productos Destacados / Categorías -->
-      <section class="features-section">
-        <h3>Categorías Destacadas</h3>
-        <div class="cards-grid">
-          <div class="card">
-            <h4>Medicamentos</h4>
-            <p>Catálogo completo con stock en tiempo real.</p>
-          </div>
-          <div class="card">
-            <h4>Cuidado Personal</h4>
-            <p>Productos de higiene y bienestar.</p>
-          </div>
-          <div class="card">
-            <h4>Promociones</h4>
-            <p>Descuentos exclusivos para sucursales.</p>
-          </div>
-        </div>
-      </section>
-
-    </main>
-  </div>
-
-  <!-- MODAL DE INICIO DE SESIÓN / REGISTRO (Oculto por defecto) -->
-  <div class="modal-overlay" id="authModal">
-    <div class="modal-card">
-      <button class="close-btn" id="closeModal">&times;</button>
-      
-      <!-- Tab Iniciar Sesión -->
-      <div id="loginForm" class="auth-form">
-        <h2>Iniciar Sesión</h2>
-        <input type="email" placeholder="Ingrese su correo" required>
-        <input type="password" placeholder="Ingrese su contraseña" required>
-        <a href="#" class="forgot-link">¿Olvidaste la contraseña?</a>
-        <button class="submit-btn">INICIAR SESIÓN</button>
-        <p>¿No tienes cuenta? <a href="#" id="toRegister">Regístrate acá</a></p>
-      </div>
-
-      <!-- Tab Registrarse -->
-      <div id="registerForm" class="auth-form hidden">
-        <h2>Registrarse</h2>
-        <input type="text" placeholder="Nombre completo" required>
-        <input type="email" placeholder="Correo electrónico" required>
-        <input type="tel" placeholder="+54 11 1234-5678">
-        <input type="text" placeholder="Dirección de sucursal">
-        <input type="password" placeholder="Ingrese la contraseña" required>
-        <input type="password" placeholder="Confirme la contraseña" required>
-        <button class="submit-btn">REGISTRARSE</button>
-        <p>¿Ya tienes una cuenta? <a href="#" id="toLogin">Inicia sesión acá</a></p>
-      </div>
-    </div>
-  </div>
-
-</body>
-</html>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
+  --shadow-md: 0 4px 16px rgba(128, 0, 32, 0.12);
+  --sidebar-width: 68px;
+  --nav-height: 60px;
 }
 
 body {
-  background-color: #f3ece1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background-color: var(--bg-color);
+  color: var(--text-color);
   min-height: 100vh;
 }
 
-/* Panel Principal Centrado */
-.app-container {
-  display: flex;
-  width: 90%;
-  max-width: 1000px;
-  background: #ffffff;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+.hidden {
+  display: none !important;
 }
 
-/* Menú Lateral */
-.sidebar {
-  width: 70px;
-  background-color: #f9f6f0;
+/* ==========================================================================
+   ESTRUCTURA BASE (MÓVIL)
+   ========================================================================== */
+.dashboard {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  padding-bottom: calc(var(--nav-height) + 1rem);
+}
+
+.header-bar {
+  background-color: var(--card-bg);
+  padding: 0.85rem 1.25rem;
+  border-bottom: 1px solid var(--border-color);
   display: flex;
-  flex-direction: column;
   align-items: center;
-  padding-top: 20px;
-  border-right: 1px solid #e5dec9;
-}
-
-.nav-btn {
-  background: none;
-  border: none;
-  padding: 12px;
-  margin-bottom: 15px;
-  border-radius: 10px;
-  cursor: pointer;
-}
-
-.nav-btn.active, .nav-btn:hover {
-  background-color: #e8dcc4;
-}
-
-.nav-btn img {
-  width: 28px;
-  height: 28px;
-}
-
-/* Área Principal */
-.main-content {
-  flex: 1;
-  padding: 30px;
-}
-
-.top-header {
-  display: flex;
   justify-content: space-between;
-  align-items: center;
-  border-bottom: 2px solid #f0e6d6;
-  padding-bottom: 10px;
-  margin-bottom: 20px;
 }
 
-.brand-title {
-  color: #6b0c22;
-  font-size: 28px;
-}
-
-.brand-subtitle {
-  color: #777;
-  font-size: 12px;
+.brand-title-sm {
+  color: var(--primary-color);
+  font-size: 1.4rem;
+  font-weight: 900;
   letter-spacing: 1px;
 }
 
-/* Banner de Pedido */
+.brand-sub {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.main-content {
+  width: 100%;
+}
+
+.tab-content {
+  display: none;
+  padding: 1.25rem;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* Banner de inicio */
 .hero-banner {
-  background-color: #6b0c22;
-  color: white;
-  padding: 40px 20px;
-  border-radius: 10px;
+  background: linear-gradient(135deg, rgb(128, 0, 32) 0%, rgb(80, 0, 20) 100%);
+  color: var(--lafi-crema);
+  border-radius: var(--radius-md);
+  padding: 3rem 1.5rem;
   text-align: center;
-  margin-bottom: 30px;
+  box-shadow: var(--shadow-sm);
 }
 
 .hero-banner h2 {
-  font-size: 32px;
-  margin-bottom: 15px;
+  font-size: 1.8rem;
+  margin-bottom: 1.25rem;
+  font-weight: 800;
 }
 
-.cta-button {
-  background-color: #f3ece1;
-  color: #6b0c22;
+.btn-hero {
+  background-color: var(--lafi-crema);
+  color: var(--primary-color);
   border: none;
-  padding: 12px 24px;
-  font-size: 16px;
-  font-weight: bold;
-  border-radius: 20px;
+  padding: 0.85rem 1.75rem;
+  border-radius: 50px;
+  font-weight: 800;
+  font-size: 0.95rem;
   cursor: pointer;
+  transition: background-color 0.2s;
 }
 
-/* Recomendación: Secciones Inferiores */
-.features-section h3 {
-  color: #6b0c22;
-  margin-bottom: 15px;
+/* Tarjetas e Inputs */
+.order-status-card, .profile-card, .activity-card {
+  background: var(--card-bg);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+  margin-bottom: 1rem;
 }
 
-.cards-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 15px;
+.form-group {
+  margin-bottom: 1rem;
 }
 
-.card {
-  background: #fdfaf5;
-  padding: 15px;
-  border: 1px solid #ebdcc5;
-  border-radius: 8px;
+.form-group label {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
 }
 
-/* Ventana Modal de Iniciar Sesión / Registro */
-.modal-overlay {
+.form-group input {
+  width: 100%;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-color);
+}
+
+.btn-secondary, .btn-outline, .btn-danger {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+
+.btn-secondary { background-color: var(--lafi-crema); color: var(--primary-color); border: 1px solid var(--border-color); }
+.btn-outline { background: transparent; border: 1px solid var(--border-color); color: var(--text-color); }
+.btn-danger { background-color: #ffebee; color: #d32f2f; border: none; }
+
+/* Navegación Móvil */
+.bottom-nav {
   position: fixed;
-  top: 0; left: 0;
-  width: 100vw; height: 100vh;
-  background: rgba(0,0,0,0.5);
-  display: none; /* Se activa mediante JS */
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-overlay.active {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: var(--nav-height);
+  background: var(--card-bg);
+  border-top: 1px solid var(--border-color);
   display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 100;
 }
 
-.modal-card {
-  background: #fff;
-  padding: 30px;
-  border-radius: 10px;
-  width: 350px;
-  position: relative;
-}
-
-.close-btn {
-  position: absolute;
-  top: 10px; right: 15px;
-  border: none; background: none;
-  font-size: 20px; cursor: pointer;
-}
-
-.auth-form input {
-  width: 100%;
-  padding: 8px;
-  margin: 8px 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.submit-btn {
-  width: 100%;
-  padding: 10px;
-  background: #6b0c22;
-  color: white;
+.nav-item {
+  background: none;
   border: none;
-  border-radius: 4px;
-  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  color: var(--text-muted);
+  font-size: 0.7rem;
   cursor: pointer;
+  width: 25%;
+  height: 100%;
+  justify-content: center;
 }
 
-.hidden { display: none; }
+.nav-item.active {
+  color: var(--primary-color);
+  font-weight: 800;
+}
+
+/* ==========================================================================
+   ADAPTACIÓN ESCRITORIO
+   ========================================================================== */
+@media (min-width: 768px) {
+  body {
+    padding: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .dashboard {
+    max-width: 1200px;
+    min-height: 85vh;
+    background: var(--bg-color);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-md);
+    padding-bottom: 0;
+    overflow: hidden;
+
+    display: grid;
+    grid-template-columns: var(--sidebar-width) 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+      "sidebar header"
+      "sidebar content";
+  }
+
+  .bottom-nav {
+    grid-area: sidebar;
+    position: static;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: var(--sidebar-width);
+    height: 100%;
+    border-top: none;
+    border-right: 1px solid var(--border-color);
+    padding: 1rem 0;
+    gap: 0.75rem;
+    background-color: var(--card-bg);
+  }
+
+  .header-bar {
+    grid-area: header;
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem 2rem;
+  }
+
+  .main-content {
+    grid-area: content;
+    overflow-y: auto;
+  }
+
+  .nav-item {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-sm);
+    justify-content: center;
+    position: relative;
+  }
+
+  .nav-label {
+    display: none;
+  }
+
+  .nav-icon {
+    font-size: 1.35rem;
+  }
+
+  .nav-item.active {
+    background-color: var(--lafi-crema-opaco);
+    color: var(--primary-color);
+  }
+
+  .nav-item::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    left: 110%;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--primary-color);
+    color: var(--lafi-crema);
+    padding: 0.35rem 0.65rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    z-index: 20;
+  }
+
+  .nav-item:hover::after {
+    opacity: 1;
+  }
+
+  .tab-content {
+    padding: 2.5rem;
+  }
+
+  .profile-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .activity-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+  }
+}
