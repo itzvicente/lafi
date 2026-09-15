@@ -35,15 +35,138 @@ body {
   background-color: var(--bg-color);
   color: var(--text-color);
   min-height: 100vh;
-}
-
-.hidden {
-  display: none !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* ==========================================================================
-   ESTRUCTURA BASE (MÓVIL)
+   CONTROL DE VISTAS (LOGIN / REGISTRO / DASHBOARD)
    ========================================================================== */
+.view {
+  width: 100%;
+}
+
+.view.hidden {
+  display: none !important;
+}
+
+.view.active {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Tarjetas de Autenticación Centradas */
+.card-auth {
+  background: var(--card-bg);
+  width: 90%;
+  max-width: 420px;
+  padding: 2.5rem 2rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  text-align: center;
+  border: 1px solid var(--border-color);
+  margin: 2rem auto;
+}
+
+.brand-title {
+  color: var(--primary-color);
+  font-size: 2.5rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  line-height: 1;
+}
+
+.brand-subtitle {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.card-auth h2 {
+  font-size: 1.3rem;
+  margin-bottom: 1.25rem;
+  color: var(--text-color);
+}
+
+.input-group {
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.input-group label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  color: var(--text-muted);
+}
+
+.input-group input {
+  width: 100%;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  background-color: var(--bg-color);
+  outline: none;
+}
+
+.input-group input:focus {
+  border-color: var(--primary-color);
+}
+
+.auth-links {
+  text-align: right;
+  margin-bottom: 1rem;
+}
+
+.link-forgot {
+  font-size: 0.75rem;
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 0.85rem;
+  background-color: var(--primary-color);
+  color: var(--lafi-crema);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+}
+
+.switch-auth {
+  margin-top: 1.25rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.switch-auth a {
+  color: var(--primary-color);
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   ESTRUCTURA DASHBOARD (MÓVIL BASE)
+   ========================================================================== */
+#view-dashboard.active {
+  display: block !important;
+}
+
 .dashboard {
   width: 100%;
   min-height: 100vh;
@@ -64,13 +187,14 @@ body {
   color: var(--primary-color);
   font-size: 1.4rem;
   font-weight: 900;
-  letter-spacing: 1px;
+  display: block;
+  line-height: 1;
 }
 
 .brand-sub {
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   color: var(--text-muted);
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .main-content {
@@ -86,7 +210,7 @@ body {
   display: block;
 }
 
-/* Banner de inicio */
+/* Pestaña Inicio */
 .hero-banner {
   background: linear-gradient(135deg, rgb(128, 0, 32) 0%, rgb(80, 0, 20) 100%);
   color: var(--lafi-crema);
@@ -111,10 +235,9 @@ body {
   font-weight: 800;
   font-size: 0.95rem;
   cursor: pointer;
-  transition: background-color 0.2s;
 }
 
-/* Tarjetas e Inputs */
+/* Tarjetas internas */
 .order-status-card, .profile-card, .activity-card {
   background: var(--card-bg);
   border-radius: var(--radius-md);
@@ -124,30 +247,33 @@ body {
   margin-bottom: 1rem;
 }
 
-.form-group {
-  margin-bottom: 1rem;
+.status-list {
+  list-style: none;
+  margin: 1rem 0;
 }
 
-.form-group label {
-  display: block;
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  margin-bottom: 0.25rem;
+.status-step {
+  padding: 0.4rem 0;
+  font-size: 0.9rem;
 }
 
-.form-group input {
-  width: 100%;
-  padding: 0.65rem 0.85rem;
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-sm);
-  background-color: var(--bg-color);
+.status-step.active {
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+.divider {
+  border: 0;
+  height: 1px;
+  background: var(--border-color);
+  margin: 1.5rem 0;
 }
 
 .btn-secondary, .btn-outline, .btn-danger {
   width: 100%;
   padding: 0.75rem;
   border-radius: var(--radius-sm);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 600;
   cursor: pointer;
   margin-top: 0.5rem;
@@ -178,7 +304,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3px;
+  gap: 2px;
   color: var(--text-muted);
   font-size: 0.7rem;
   cursor: pointer;
@@ -196,9 +322,8 @@ body {
    ADAPTACIÓN ESCRITORIO
    ========================================================================== */
 @media (min-width: 768px) {
-  body {
-    padding: 1.5rem;
-    display: flex;
+  #view-dashboard.active {
+    display: flex !important;
     justify-content: center;
     align-items: center;
   }
@@ -232,77 +357,25 @@ body {
     border-right: 1px solid var(--border-color);
     padding: 1rem 0;
     gap: 0.75rem;
-    background-color: var(--card-bg);
   }
 
-  .header-bar {
-    grid-area: header;
-    border-bottom: 1px solid var(--border-color);
-    padding: 1rem 2rem;
-  }
-
-  .main-content {
-    grid-area: content;
-    overflow-y: auto;
-  }
-
+  .header-bar { grid-area: header; padding: 1rem 2.5rem; }
+  .main-content { grid-area: content; overflow-y: auto; }
+  
   .nav-item {
     width: 48px;
     height: 48px;
     border-radius: var(--radius-sm);
     justify-content: center;
-    position: relative;
   }
 
-  .nav-label {
-    display: none;
-  }
-
-  .nav-icon {
-    font-size: 1.35rem;
-  }
+  .nav-label { display: none; }
+  .nav-icon { font-size: 1.3rem; }
 
   .nav-item.active {
     background-color: var(--lafi-crema-opaco);
     color: var(--primary-color);
   }
 
-  .nav-item::after {
-    content: attr(data-tooltip);
-    position: absolute;
-    left: 110%;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: var(--primary-color);
-    color: var(--lafi-crema);
-    padding: 0.35rem 0.65rem;
-    border-radius: 4px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s ease;
-    z-index: 20;
-  }
-
-  .nav-item:hover::after {
-    opacity: 1;
-  }
-
-  .tab-content {
-    padding: 2.5rem;
-  }
-
-  .profile-card {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-  }
-
-  .activity-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1rem;
-  }
+  .tab-content { padding: 2.5rem; }
 }
