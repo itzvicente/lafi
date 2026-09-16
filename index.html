@@ -1,3 +1,12 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LAFI - Droguería y Bienestar</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
 <!-- VISTA 1: LOGIN -->
 <div id="view-login" class="view active">
   <div class="card-auth">
@@ -77,3 +86,105 @@
     <p class="switch-auth">¿Ya tienes una cuenta? <button type="button" class="btn-link" id="go-to-login">Inicia sesión acá</button></p>
   </div>
 </div>
+
+  <!-- ==========================================================================
+       VISTA 3: DASHBOARD PRINCIPAL
+       ========================================================================== -->
+  <div id="view-dashboard" class="view hidden">
+    <div class="dashboard">
+      
+      <header class="header-bar">
+        <div class="brand-header">
+          <span class="brand-title-sm">LAFI</span>
+          <span class="brand-sub">DROGUERÍA Y BIENESTAR</span>
+        </div>
+      </header>
+
+      <main class="main-content">
+        
+        <section id="tab-home" class="tab-content active">
+          <div class="hero-banner">
+            <h2>HACE TU PEDIDO!!!</h2>
+            <button class="btn-hero" type="button">Iniciar Pedido 🛒</button>
+          </div>
+        </section>
+
+        <section id="tab-order" class="tab-content">
+          <div class="order-status-card">
+            <h3>Tu pedido</h3>
+            <ul class="status-list">
+              <li class="status-step active">✓ Pago confirmado</li>
+              <li class="status-step active">📦 En preparación</li>
+              <li class="status-step active">🚚 En camino</li>
+            </ul>
+            <p class="order-info"><strong>Estado:</strong> En camino</p>
+            <p class="order-info"><strong>Sucursal:</strong> No asignada</p>
+            <button class="btn-secondary" type="button">Ver factura</button>
+          </div>
+        </section>
+
+        <section id="tab-activity" class="tab-content">
+          <h2>ACTIVIDAD</h2>
+          <div class="filters">
+            <select><option>PEDIDOS A</option></select>
+            <select><option>PERIODO</option></select>
+          </div>
+          <div class="activity-list">
+            <div class="activity-card">
+              <span class="badge badge-shipping">En camino - mar 7 de abril</span>
+              <h4>$1.983.250 — <small>840 cajas</small></h4>
+            </div>
+            <div class="activity-card">
+              <span class="badge badge-delivered">Entregado - vie 20 de marzo</span>
+              <h4>$2.044.000 — <small>850 cajas</small></h4>
+            </div>
+            <div class="activity-card">
+              <span class="badge badge-canceled">Cancelado - lun 16 de marzo</span>
+              <h4>$1.780.000 — <small>790 cajas</small></h4>
+            </div>
+          </div>
+        </section>
+
+        <section id="tab-profile" class="tab-content">
+          <div class="profile-card">
+            <h3>Información personal</h3>
+            <div class="form-group"><label>Nombre completo</label><input type="text" readonly value="Usuario Ejemplo"></div>
+            <div class="form-group"><label>Correo electrónico</label><input type="email" readonly value="usuario@gmail.com"></div>
+            <div class="form-group"><label>Teléfono</label><input type="text" readonly value="+54 11 11111111"></div>
+            <div class="form-group"><label>Sucursal asignada / Dirección</label><input type="text" readonly value="Av. Siempre Viva 123"></div>
+            
+            <hr class="divider">
+            
+            <h3>Cuenta y Seguridad</h3>
+            <button class="btn-outline" type="button">Cambiar contraseña</button>
+            <button class="btn-danger" type="button" id="btn-logout">Cerrar Sesión</button>
+          </div>
+        </section>
+
+      </main>
+
+      <nav class="bottom-nav">
+        <button type="button" class="nav-item active" data-tab="tab-home" data-tooltip="Inicio">
+          <span class="nav-icon">🏠</span>
+          <span class="nav-label">Inicio</span>
+        </button>
+        <button type="button" class="nav-item" data-tab="tab-order" data-tooltip="Tu Pedido">
+          <span class="nav-icon">📦</span>
+          <span class="nav-label">Tu Pedido</span>
+        </button>
+        <button type="button" class="nav-item" data-tab="tab-activity" data-tooltip="Actividad">
+          <span class="nav-icon">📋</span>
+          <span class="nav-label">Actividad</span>
+        </button>
+        <button type="button" class="nav-item" data-tab="tab-profile" data-tooltip="Perfil">
+          <span class="nav-icon">👤</span>
+          <span class="nav-label">Perfil</span>
+        </button>
+      </nav>
+
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
