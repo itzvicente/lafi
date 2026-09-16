@@ -8,18 +8,18 @@
 </head>
 <body>
 <!-- VISTA 1: LOGIN -->
+<!-- VISTA 1: LOGIN -->
 <div id="view-login" class="view active">
   <div class="card-auth">
     <h1 class="brand-title">LAFI</h1>
     <p class="brand-subtitle">DROGUERÍA Y BIENESTAR</p>
     <h2>Iniciar Sesión</h2>
     
-    <!-- Mensaje de error / éxito para Login -->
     <div id="login-msg" class="auth-message hidden"></div>
 
     <form id="form-login">
       <div class="input-group">
-        <label for="login-email">Ingrese su gmail</label>
+        <label for="login-email">Ingrese su correo</label>
         <input type="email" id="login-email" placeholder="usuario@gmail.com" required>
       </div>
       
@@ -29,7 +29,7 @@
       </div>
 
       <div class="auth-links">
-        <a href="#" class="link-forgot">¿Olvidaste la contraseña?</a>
+        <a href="#" id="go-to-reset" class="link-forgot">¿Olvidaste la contraseña?</a>
       </div>
       
       <button type="submit" class="btn-primary">INICIAR SESIÓN</button>
@@ -39,6 +39,81 @@
   </div>
 </div>
 
+<!-- VISTA 2: REGISTRO -->
+<div id="view-register" class="view hidden">
+  <div class="card-auth">
+    <h1 class="brand-title">LAFI</h1>
+    <p class="brand-subtitle">DROGUERÍA Y BIENESTAR</p>
+    <h2>Registrarse</h2>
+    
+    <div id="register-msg" class="auth-message hidden"></div>
+
+    <form id="form-register">
+      <div class="input-group">
+        <label for="reg-name">Nombre completo</label>
+        <input type="text" id="reg-name" placeholder="Juan Pérez" required>
+      </div>
+      
+      <div class="input-group">
+        <label for="reg-email">Correo electrónico</label>
+        <input type="email" id="reg-email" placeholder="usuario@gmail.com" required>
+      </div>
+
+      <div class="input-group">
+        <label for="reg-phone">Teléfono</label>
+        <input type="tel" id="reg-phone" placeholder="+54 11 11111111" required>
+      </div>
+
+      <div class="input-group">
+        <label for="reg-address">Dirección de sucursal</label>
+        <input type="text" id="reg-address" placeholder="Av. Siempre Viva 123" required>
+      </div>
+      
+      <div class="input-group">
+        <label for="reg-pass">Ingrese la contraseña</label>
+        <input type="password" id="reg-pass" placeholder="••••••••" required>
+      </div>
+
+      <div class="input-group">
+        <label for="reg-pass-confirm">Confirme la contraseña</label>
+        <input type="password" id="reg-pass-confirm" placeholder="••••••••" required>
+      </div>
+      
+      <button type="submit" class="btn-primary">REGISTRARSE</button>
+    </form>
+    
+    <p class="switch-auth">¿Ya tienes una cuenta? <button type="button" class="btn-link" id="go-to-login">Inicia sesión acá</button></p>
+  </div>
+</div>
+
+<!-- VISTA 3: RECUPERAR CONTRASEÑA -->
+<div id="view-reset" class="view hidden">
+  <div class="card-auth">
+    <h1 class="brand-title">LAFI</h1>
+    <p class="brand-subtitle">DROGUERÍA Y BIENESTAR</p>
+    <h2>Recuperar Contraseña</h2>
+    
+    <div id="reset-msg" class="auth-message hidden"></div>
+
+    <form id="form-reset">
+      <div class="input-group">
+        <label for="reset-email">Ingrese su correo asociado</label>
+        <input type="email" id="reset-email" placeholder="usuario@gmail.com" required>
+      </div>
+
+      <button type="submit" class="btn-primary">ENVIAR ENLACE DE RECUPERACIÓN</button>
+    </form>
+
+    <div style="margin-top: 1.5rem; text-align: center;">
+      <p style="font-size: 0.85rem; color: var(--color-gray); margin-bottom: 0.5rem;">¿No recuerdas cuál es tu correo?</p>
+      <button type="button" id="btn-support" class="btn-secondary" style="width: 100%; padding: 0.6rem;">Contactar a Soporte</button>
+    </div>
+    
+    <p class="switch-auth" style="margin-top: 1.5rem;">
+      <button type="button" class="btn-link" id="go-to-login-from-reset">Volver al inicio de sesión</button>
+    </p>
+  </div>
+</div>
 <!-- VISTA 2: REGISTRO -->
 <div id="view-register" class="view hidden">
   <div class="card-auth">
