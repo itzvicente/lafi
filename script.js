@@ -14,6 +14,9 @@ function showView(viewId) {
     targetView.classList.remove('hidden');
     targetView.classList.add('active');
   }
+
+  // Limpiar mensajes al cambiar de vista
+  clearMessages();
 }
 
 function switchTab(tabId) {
@@ -31,10 +34,26 @@ function switchTab(tabId) {
 }
 
 // ==========================================================================
-// VALIDACIONES Y LÓGICA DE USUARIOS
+// MOSTRAR Y LIMPIAR MENSAJES EN LA INTERFAZ
 // ==========================================================================
 
-// Regla de contraseña: mínimo 8 caracteres, al menos 1 letra y al menos 1 carácter especial común (!@#$%^&*.,)
+function showMessage(elementId, text, type = 'error') {
+  const msgBox = document.getElementById(elementId);
+  if (!msgBox) return;
+
+  msgBox.textContent = text;
+  msgBox.className = `auth-message ${type}`;
+}
+
+function clearMessages() {
+  const messages = document.querySelectorAll('.auth-message');
+  messages.forEach(msg => {
+    msg.textContent = '';
+    msg.className = 'auth-message hidden';
+  });
+}
+
+// Validación de estructura: mín 8 caracteres, al menos 1 letra y 1 carácter especial
 function validatePasswordStructure(password) {
   const minLength = password.length >= 8;
   const hasLetter = /[a-zA-Z]/.test(password);
@@ -43,9 +62,12 @@ function validatePasswordStructure(password) {
   return minLength && hasLetter && hasSpecialChar;
 }
 
+// ==========================================================================
+// EVENTOS PRINCIPALES
+// ==========================================================================
+
 document.addEventListener('DOMContentLoaded', () => {
 
-  // Navegación entre vistas simples
   const goToRegisterBtn = document.getElementById('go-to-register');
   const goToLoginBtn = document.getElementById('go-to-login');
 
@@ -64,12 +86,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ------------------------------------------------------------------------
-  // VALIDACIÓN DE REGISTRO
+  // FORMULARIO DE REGISTRO
   // ------------------------------------------------------------------------
   const registerForm = document.getElementById('form-register');
   if (registerForm) {
     registerForm.addEventListener('submit', (e) => {
       e.preventDefault();
+      clearMessages();
 
       const name = document.getElementById('reg-name').value.trim();
       const email = document.getElementById('reg-email').value.trim().toLowerCase();
@@ -78,75 +101,70 @@ document.addEventListener('DOMContentLoaded', () => {
       const pass = document.getElementById('reg-pass').value;
       const passConfirm = document.getElementById('reg-pass-confirm').value;
 
-      // 1. Validar que no haya campos vacíos
+      // 1. Validar campos vacíos
       if (!name || !email || !phone || !address || !pass || !passConfirm) {
-        alert('Por favor, completa todos los campos requeridos.');
+        showMessage('register-msg', 'Por favor, completa todos los campos requeridos.', 'error');
         return;
       }
 
-      // 2. Validar estructura de la contraseña
+      // 2. Validar complejidad de contraseña
       if (!validatePasswordStructure(pass)) {
-        alert('La contraseña debe tener al menos 8 caracteres, incluir al menos una letra y un carácter especial (ej: ! @ # $ % * . , _).');
+        showMessage('register-msg', 'La contraseña debe tener mínimo 8 caracteres, al menos una letra y un carácter especial (!@#$%^&*.,-_).', 'error');
         return;
       }
 
       // 3. Validar coincidencia de contraseñas
       if (pass !== passConfirm) {
-        alert('Las contraseñas no coinciden. Por favor, verifícalas.');
+        showMessage('register-msg', 'Las contraseñas ingresadas no coinciden.', 'error');
         return;
       }
 
       // 4. Guardar datos en LocalStorage
-      const userData = {
-        name,
-        email,
-        phone,
-        address,
-        password: pass
-      };
-
+      const userData = { name, email, phone, address, password: pass };
       localStorage.setItem('lafi_user_' + email, JSON.stringify(userData));
 
-      alert('¡Registro exitoso! Ahora puedes iniciar sesión.');
       registerForm.reset();
+      
+      // Mostrar mensaje de éxito en la vista de Login
       showView('view-login');
+      showMessage('login-msg', '¡Cuenta creada con éxito! Ingresa con tus credenciales.', 'success');
     });
   }
 
   // ------------------------------------------------------------------------
-  // VALIDACIÓN DE INICIO DE SESIÓN
+  // FORMULARIO DE INICIO DE SESIÓN
   // ------------------------------------------------------------------------
   const loginForm = document.getElementById('form-login');
   if (loginForm) {
     loginForm.addEventListener('submit', (e) => {
       e.preventDefault();
+      clearMessages();
 
       const email = document.getElementById('login-email').value.trim().toLowerCase();
       const pass = document.getElementById('login-password').value;
 
       // 1. Validar campos vacíos
       if (!email || !pass) {
-        alert('Por favor, ingresa tu correo y contraseña.');
+        showMessage('login-msg', 'Ingresa tu correo y contraseña.', 'error');
         return;
       }
 
-      // 2. Obtener usuario del LocalStorage
+      // 2. Comprobar usuario
       const savedUserRaw = localStorage.getItem('lafi_user_' + email);
-
       if (!savedUserRaw) {
-        alert('El correo ingresado no está registrado.');
+        showMessage('login-msg', 'El correo ingresado no está registrado.', 'error');
         return;
       }
 
       const savedUser = JSON.parse(savedUserRaw);
 
-      // 3. Validar contraseña ingresada
+      // 3. Validar contraseña
       if (savedUser.password !== pass) {
-        alert('Contraseña incorrecta.');
+        showMessage('login-msg', 'Contraseña incorrecta. Inténtalo de nuevo.', 'error');
         return;
       }
 
-      // 4. Cargar datos del usuario registrado en el Perfil del Dashboard
+      // 4. Cargar perfil y pasar al Dashboard
       const profileInputs = document.querySelectorAll('#tab-profile input');
       if (profileInputs.length >= 4) {
         profileInputs[0].value = savedUser.name;
@@ -161,13 +179,14 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ------------------------------------------------------------------------
-  // CERRAR SESIÓN Y NAVEGACIÓN TAB
+  // CERRAR SESIÓN Y PESTAÑAS
   // ------------------------------------------------------------------------
   const logoutBtn = document.getElementById('btn-logout');
   if (logoutBtn) {
     logoutBtn.addEventListener('click', (e) => {
       e.preventDefault();
       showView('view-login');
+      showMessage('login-msg', 'Has cerrado sesión correctamente.', 'success');
     });
   }
 
@@ -181,6 +200,5 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Vista inicial
   showView('view-login');
 });
